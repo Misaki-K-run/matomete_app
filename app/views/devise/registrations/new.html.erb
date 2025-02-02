@@ -1,0 +1,43 @@
+<%= render "devise/shared/links" %>
+<div class="flex flex-col items-center justify-center min-h-screen w-full">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
+    <div class="text-center mb-8">
+      <h1 class="text-xl font-bold">新規登録</h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+<!-- 新規登録フォーム -->
+    <div class="space-y-4">
+      <div class="field">
+        <%= f.label :name,"ユーザー名", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, autofocus: true, class: "input input-bordered w-full max-w-xs", placeholder: "ユーザー名" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, class: "input input-bordered w-full max-w-xs", placeholder: "Email", autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password,"パスワード", class: "block text-sm font-medium text-gray-700" %>
+        <% if @minimum_password_length %>
+        <small>(<%= @minimum_password_length %> 文字以上)</small>
+        <% end %>
+        <%= f.password_field :password, class: "input input-bordered w-full max-w-xs", placeholder: "パスワード", autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation,"パスワード確認用", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password_confirmation, class: "input input-bordered w-full max-w-xs", placeholder: "パスワード確認", autocomplete: "new-password" %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "新規登録", class: "btn w-full" %>
+      </div>
+    </div>
+    <% end %>
+  <%#= render "devise/shared/links" %>
+  </div>
+</div>
