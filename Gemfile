@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 # ログイン認証
-gem 'devise'
+gem "devise"
 
 # devise 日本語化
 gem "devise-i18n"
