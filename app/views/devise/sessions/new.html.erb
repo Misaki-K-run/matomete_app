@@ -1,0 +1,38 @@
+<%= render "devise/shared/links" %>
+<div class="flex flex-col items-center justify-center min-h-screen w-full">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
+    <div class="text-center mb-8">
+      <h1 class="text-xl font-bold">ログイン</h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+<!-- ログインフォーム -->
+    <div class="space-y-4">
+      <div class="field">
+        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, autofocus: true, class: "input input-bordered w-full max-w-xs", placeholder: "Email", autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password,"パスワード", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password, class: "input input-bordered w-full max-w-xs", placeholder: "パスワード", autocomplete: "current-password" %>
+      </div>
+
+        <% if devise_mapping.rememberable? %>
+        <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, "ログインを保持する"%>
+        </div>
+        <% end %>
+
+      <div class="text-center">
+        <%= f.submit "ログイン", class: "btn w-full" %>
+      </div>
+    <% end %>
+      <div class="text-center">
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline btn-accent w-full" %>
+      </div>
+    </div>
+  </div>
+</div>
