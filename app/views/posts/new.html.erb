@@ -1,18 +1,16 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>一週間の献立表</h1>
+<div class="container mx-auto p-4">
+  <div class="max-w-lg mx-auto">
+      <h1 class="text-2xl font-bold text-center mb-6">一週間の献立表</h1>
       <%= form_with model: @post, class: "new_post" do |f| %>
-        <div class="mb-3">
-          <%= f.label :memo,"メモ" %>
-          <%= f.text_field :memo, class: "form-control",placeholder: "フリーテキストを入力" %>
-        </div>
-        <div class="mb-3">
-          <%= f.label :sum,"合計" %>
-          <%= f.number_field :sum, class: "form-control",placeholder: "数字を入力" %>
-        </div>
-        <%= f.submit "投稿", class: "btn" %>
-      <% end %>
-    </div>
+      <div class="mb-4">
+        <%= f.label :memo, "メモ", class: "block text-lg font-medium mb-2" %>
+        <%= f.text_field :memo, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "メモを入力" %>
+      </div>
+      <div class="mb-4">
+        <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
+        <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
+      </div>
+      <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+       <% end %>
   </div>
 </div>

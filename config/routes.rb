@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   }
 
   # 投稿
-  resources :posts, only: %i[index new] do
+  resources :posts, only: %i[index new create] do
     resource :menu
   end
 
