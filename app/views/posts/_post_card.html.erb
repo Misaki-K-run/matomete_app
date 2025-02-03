@@ -1,0 +1,63 @@
+<a href="#<%#= post_path(@post) %>" class="block">
+<div class="card bg-base-100 w-96 shadow-xl hover:shadow-2xl transition">
+  <div class="card-body">
+    <!--献立表 menusの追加後変更-->
+    <div class="overflow-x-auto">
+  <table class="table table-xs">
+    <thead>
+      <tr>
+        <th></th>
+        <th>一週間の献立表</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>月</th>
+        <td>Cy Ganderton</td>
+      </tr>
+      <tr>
+        <th>火</th>
+        <td>Hart Hagerty</td>
+      </tr>
+      <tr>
+        <th>水</th>
+        <td>Brice Swyre</td>
+      </tr>
+      <tr>
+        <th>木</th>
+        <td>Marjy Ferencz</td>
+      </tr>
+      <tr>
+        <th>金</th>
+        <td>Yancy Tear</td>
+      </tr>
+      <tr>
+        <th>土</th>
+        <td>Irma Vasilik</td>
+      </tr>
+      <tr>
+        <th>日</th>
+        <td>Meghann Durtnal</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    <% if post.sum.present? %>
+        <div class="flex justify-end">
+          <h3 class="card-title">合計: <%= post.sum %>円</h3>
+        </div>
+    <% end %>
+    <!--user image,buget,people追加後変更する-->
+    <div class="avatar">
+      <div class="w-24 rounded-full">
+      <%= image_tag 'user-icon.png' %>
+    </div>
+    <div class="card-actions">
+      <div class="flex flex-col items-center space-y-2">
+        <div class="badge badge-outline">予算</div>
+        <div class="badge badge-outline">人数</div>
+      </div>
+    </div>
+  </div>
+</div>
+</a>
