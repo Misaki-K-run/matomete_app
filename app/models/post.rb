@@ -4,4 +4,5 @@ class Post < ApplicationRecord
 
   # 関連付け
   belongs_to :user
+  has_one :menu, dependent: :destroy
 end
