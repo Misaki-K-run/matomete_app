@@ -16,16 +16,25 @@ class PostForm
   attribute :saturday, :string
   attribute :sunday, :string
 
+    # ShoppingListの属性
+    attribute :meat_fish, :string
+    attribute :vegetable, :string
+    attribute :other, :string
+
   # バリデーション
   validates :memo, length: { maximum: 1000 }
   validates :sum, numericality: { only_integer: true }, allow_nil: true
   validates :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, length: { maximum: 2000 }
+  validates :meat_fish, :vegetable, :other, length: { maximum: 2000 }
 
   def save
     return false unless valid?
 
     ActiveRecord::Base.transaction do
+      # Postの作成
       post = Post.create!(memo: memo, sum: sum, user_id: user_id)
+
+      # Menuの作成
       Menu.create!(
         post_id: post.id,
         monday: monday,
@@ -35,6 +44,14 @@ class PostForm
         friday: friday,
         saturday: saturday,
         sunday: sunday
+      )
+
+      # ShoppingListの作成
+      ShoppingList.create!(
+        post_id: post.id,
+        meat_fish: meat_fish,
+        vegetable: vegetable,
+        other: other
       )
     end
     true
