@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     params.require(:post_form).permit(
       :sum, :memo,  # Post の属性
       :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,  # Menu の属性
-      #:items # ShoppingList の属性
+      # :items # ShoppingList の属性
     )
   end
 end

@@ -4,5 +4,4 @@ class ApplicationController < ActionController::Base
 
   # devise ログインの確認
   before_action :authenticate_user!
-
 end
