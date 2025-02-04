@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   }
 
   # 投稿
-  resources :posts, only: %i[index new create] do
-    resource :menu
-  end
+  resources :posts, only: %i[index new create]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

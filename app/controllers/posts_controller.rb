@@ -2,16 +2,18 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @posts = Post.includes(:user)
+    @posts = Post.includes(:user, :menu)
   end
 
   def new
-    @post = Post.new
+    @post_form = PostForm.new
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
+    @post_form = PostForm.new(post_form_params)
+    @post_form.user_id = current_user.id  # ログインユーザーをセット
+
+    if @post_form.save
       redirect_to posts_path, notice: "投稿できました"
     else
       flash.now[:alert] = "投稿できませんでした"
@@ -21,7 +23,11 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
-    params.require(:post).permit(:sum, :memo)
+  def post_form_params
+    params.require(:post_form).permit(
+      :sum, :memo,  # Post の属性
+      :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,  # Menu の属性
+      #:items # ShoppingList の属性
+    )
   end
 end
