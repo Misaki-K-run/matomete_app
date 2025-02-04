@@ -1,7 +1,6 @@
 <a href="#<%#= post_path(@post) %>" class="block w-full">
 <div class="card bg-base-100 w-full max-w-xs shadow-xl hover:shadow-2xl transition">
   <div class="card-body">
-    <!--献立表 menusの追加後変更-->
     <div class="overflow-x-auto">
   <table class="table table-xs">
     <thead>
@@ -13,31 +12,31 @@
     <tbody>
       <tr>
         <th>月</th>
-        <td>Cy Ganderton</td>
+        <td><%= post.menu.monday if post.menu %></td>
       </tr>
       <tr>
         <th>火</th>
-        <td>Hart Hagerty</td>
+        <td><%=post.menu.tuesday if post.menu %></td>
       </tr>
       <tr>
         <th>水</th>
-        <td>Brice Swyre</td>
+        <td><%=post.menu.wednesday if post.menu %></td>
       </tr>
       <tr>
         <th>木</th>
-        <td>Marjy Ferencz</td>
+        <td><%=post.menu.thursday if post.menu %></td>
       </tr>
       <tr>
         <th>金</th>
-        <td>Yancy Tear</td>
+        <td><%=post.menu.friday if post.menu %></td>
       </tr>
       <tr>
         <th>土</th>
-        <td>Irma Vasilik</td>
+        <td><%=post.menu.saturday if post.menu %></td>
       </tr>
       <tr>
         <th>日</th>
-        <td>Meghann Durtnal</td>
+        <td><%=post.menu.sunday if post.menu %></td>
       </tr>
     </tbody>
   </table>

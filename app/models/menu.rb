@@ -7,6 +7,5 @@ class Menu < ApplicationRecord
   validates :saturday, length: { maximum: 2000 }
   validates :sunday, length: { maximum: 2000 }
 
-  # 関連付け userいる？
   belongs_to :post
 end
