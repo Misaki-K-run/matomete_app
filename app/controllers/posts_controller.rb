@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @posts = Post.includes(:user, :menu)
+    @posts = Post.includes(:user, :menu, :shopping_list)
   end
 
   def new
@@ -19,6 +19,10 @@ class PostsController < ApplicationController
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @post= Post.find(params[:id])
   end
 
   private
