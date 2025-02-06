@@ -26,34 +26,26 @@
     <%= f.text_area :sunday,class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
       <!--買い物リスト入力画面-->
-        <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
-        <div id="shopping-list-container">
-          <div class="mb-4" id="meat-fields">
-            <%= f.label :meat_fish, "肉、魚類", class: "block text-lg font-medium mb-2 bg-red-300 text-white" %>
-            <%= f.text_field :meat_fish, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
 
-          <div class="mb-4" id="vegetable-fields">
-            <%= f.label :vegetable, "野菜", class: "block text-lg font-medium mb-2 bg-green-600 text-white" %>
-            <%= f.text_field :vegetable, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
+<h3>買い物リスト</h3>
+  <%= f.label :meat_fish, "肉・魚" %>
+  <%= f.text_field :meat_fish %>
+  <%= button_tag "肉・魚を追加", type: :submit, name: 'add_meat_fish', value: f.object.meat_fish, formaction: add_item_posts_path %>
 
-          <div class="mb-4" id="other-fields">
-            <%= f.label :other, "その他", class: "block text-lg font-medium mb-2 bg-yellow-400 text-white" %>
-            <%= f.text_field :other, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
-</div>
-        </div>
-      <!--リスト一覧-->
-        <div class="bg-red-300 text-white w-full text-center">肉、魚類</div>
-        <div id="meat-items"></div>
-        <div class="bg-green-600 text-white w-full text-center">野菜</div>
-        <div id="vegetable-items"></div>
-        <div class="bg-yellow-400 text-white w-full text-center">その他</div>
-        <div id="other-items"></div>
+  <%= f.label :vegetable, "野菜" %>
+  <%= f.text_field :vegetable %>
+  <%= button_tag "野菜を追加", type: :submit, name: 'add_vegetable', value: f.object.vegetable, formaction: add_item_posts_path %>
+
+  <%= f.label :other, "その他" %>
+  <%= f.text_field :other %>
+  <%= button_tag "その他を追加", type: :submit, name: 'add_other', value: f.object.other, formaction: add_item_posts_path %>
+
+  <!--ショッピングリスト-->
+  <div id="shopping_list">
+    <%= render partial: 'shopping_list', locals: { post_form: @post_form } %>
+  </div>
+<!-- Turbo Streamからの更新を受ける -->
+  <%= turbo_stream_from 'shopping_list' %>
 
       <!--ポスト-->
       <div class="mb-4">
@@ -70,7 +62,7 @@
     </div>
   </div>
 </div>
-
+<!--
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // 追加ボタンをクリックしたときの処理
@@ -114,3 +106,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+-->

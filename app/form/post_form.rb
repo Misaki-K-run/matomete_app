@@ -16,16 +16,42 @@ class PostForm
   attribute :saturday, :string
   attribute :sunday, :string
 
-    # ShoppingListの属性
-    attribute :meat_fish, :string
-    attribute :vegetable, :string
-    attribute :other, :string
+  # ShoppingListの属性（配列として扱う）
+  attribute :meat_fish, :string, default: ""
+  attribute :vegetable, :string, default: ""
+  attribute :other, :string, default: ""
 
   # バリデーション
   validates :memo, length: { maximum: 1000 }
   validates :sum, numericality: { only_integer: true }, allow_nil: true
   validates :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, length: { maximum: 2000 }
   validates :meat_fish, :vegetable, :other, length: { maximum: 2000 }
+
+  # 配列として扱うメソッド
+  def meat_fish_array
+    meat_fish.present? ? meat_fish.split(",") : []
+  end
+
+  def vegetable_array
+    vegetable.present? ? vegetable.split(",") : []
+  end
+
+  def other_array
+    other.present? ? other.split(",") : []
+  end
+
+  # リストにアイテムを追加
+  def add_meat_fish(item)
+    self.meat_fish = (meat_fish_array + [item]).join(",")
+  end
+
+  def add_vegetable(item)
+    self.vegetable = (vegetable_array + [item]).join(",")
+  end
+
+  def add_other(item)
+    self.other = (other_array + [item]).join(",")
+  end
 
   def save
     return false unless valid?
@@ -49,9 +75,9 @@ class PostForm
       # ShoppingListの作成
       ShoppingList.create!(
         post_id: post.id,
-        meat_fish: meat_fish,
-        vegetable: vegetable,
-        other: other
+        meat_fish: meat_fish.split(",").reject(&:blank?),   # 配列化
+        vegetable: vegetable.split(",").reject(&:blank?),  # 配列化
+        other: other.split(",").reject(&:blank?)           # 配列化
       )
     end
     true
