@@ -28,23 +28,31 @@
       <!--買い物リスト入力画面-->
 
 <h3>買い物リスト</h3>
-  <%= f.label :meat_fish, "肉・魚" %>
-  <%= f.text_field :meat_fish %>
-  <%= button_tag "肉・魚を追加", type: :submit, name: 'add_meat_fish', value: f.object.meat_fish, formaction: add_item_posts_path %>
+<%= render partial: 'posts/shopping_form', locals: { post_form: @post_form } %>
 
-  <%= f.label :vegetable, "野菜" %>
-  <%= f.text_field :vegetable %>
-  <%= button_tag "野菜を追加", type: :submit, name: 'add_vegetable', value: f.object.vegetable, formaction: add_item_posts_path %>
-
-  <%= f.label :other, "その他" %>
-  <%= f.text_field :other %>
-  <%= button_tag "その他を追加", type: :submit, name: 'add_other', value: f.object.other, formaction: add_item_posts_path %>
+<%= turbo_stream_from 'shopping_form' %>
+<turbo-stream action="replace" target="shopping_form" cache="false">
+  <template>
+    <%= render partial: 'posts/shopping_form', locals: { post_form: @post_form } %>
+  </template>
+</turbo-stream>
 
   <!--ショッピングリスト-->
-  <div id="shopping_list">
-    <%= render partial: 'shopping_list', locals: { post_form: @post_form } %>
-  </div>
+<div id="shopping_list">
+  <ul>
+    <% @post_form.meat_fish_array.each do |item| %>
+      <li><%= item %></li>
+    <% end %>
+    <% @post_form.vegetable_array.each do |item| %>
+      <li><%= item %></li>
+    <% end %>
+    <% @post_form.other_array.each do |item| %>
+      <li><%= item %></li>
+    <% end %>
+  </ul>
+</div>
 <!-- Turbo Streamからの更新を受ける -->
+
   <%= turbo_stream_from 'shopping_list' %>
 
       <!--ポスト-->
@@ -62,48 +70,4 @@
     </div>
   </div>
 </div>
-<!--
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 追加ボタンをクリックしたときの処理
-  const addItemButtons = document.querySelectorAll('.add-item-btn');
 
-  addItemButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      const button = e.target;
-      const containerId = button.parentElement.id; // meat_fish-fields, vegetable-fields, other-fields
-      const itemType = containerId.split('-')[0]; // 'meat_fish', 'vegetable', 'other'
-      const inputField = button.previousElementSibling; // テキストエリア
-
-      // 入力フィールドが空でないかをチェック
-      if (inputField.value.trim() !== '') {
-        // 新しいアイテムを追加するためのdivを作成
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('item', 'border-b', 'border-gray-300', 'py-1');
-
-        // 新しいアイテムの内容
-        itemContainer.innerHTML = `
-          <span class="item-text">${inputField.value}</span>
-          <button type="button" class="remove-item-btn text-red-500 ml-2">削除</button>
-        `;
-
-        // アイテムを表示する場所に追加
-        document.getElementById(`${itemType}-items`).appendChild(itemContainer);
-
-        // 入力フィールドをクリア
-        inputField.value = '';
-
-        // 削除ボタンのイベントリスナーを追加
-        const removeButton = itemContainer.querySelector('.remove-item-btn');
-        removeButton.addEventListener('click', () => {
-          itemContainer.remove();
-        });
-      } else {
-        // 空欄の場合は何もしない
-        alert('入力欄が空です。');
-      }
-    });
-  });
-});
-</script>
--->
