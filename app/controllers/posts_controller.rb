@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @posts = Post.includes(:user, :menu, :shopping_list)
+    @posts = Post.includes(:user, :menu, :shopping_lists)
   end
 
   def new
@@ -13,9 +13,12 @@ class PostsController < ApplicationController
     @post_form = PostForm.new(post_form_params)
     @post_form.user_id = current_user.id  # ログインユーザーをセット
 
+    Rails.logger.debug("POSTリクエストが送信されました: #{@post_form.inspect}")
+
     if @post_form.save
       redirect_to posts_path, notice: "投稿できました"
     else
+      Rails.logger.debug("Post Form Errors: #{@post_form.errors.full_messages}")
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
@@ -25,36 +28,24 @@ class PostsController < ApplicationController
     @post= Post.find(params[:id])
   end
 
-    # アイテムを追加
-    def add_item
-    #logger.debug "Received params: #{params.inspect}"
-      @post_form = PostForm.new(post_form_params)
-      #logger.debug "post_form_params: #{post_form_params.inspect}"
+  def add_item
+    @post_form = PostForm.new(post_form_params)
+    @post_form.user_id = current_user.id  # ログインユーザーをセット
+
+    if @post_form.save
+      @post = @post_form.post  # 保存した Post オブジェクトを取得
+      @items = ShoppingList.where(post_id: @post.id)
 
 
-      if params[:add_meat_fish].present?
-        @post_form.add_meat_fish(params[:meat_fish])  # meat_fish を追加
-        logger.debug "add_meat_fish is present: #{params[:add_meat_fish]}"
-        @post_form.meat_fish = ''  # フォームの値をリセット
-      elsif params[:add_vegetable].present?
-        @post_form.add_vegetable(params[:vegetable])  # vegetable を追加
-        @post_form.vegetable = '' # フォームフィールドを空にする
-      elsif params[:add_other].present?
-        @post_form.add_other(params[:other])  # other を追加
-        @post_form.other = '' # フォームフィールドを空にする
-      end
-
-      respond_to do |format|
-        format.turbo_stream do
-          # ショッピングリストを更新
-          render turbo_stream: [
-            turbo_stream.replace('shopping_list', partial: 'posts/shopping_list', locals: { post_form: @post_form }),
-            # フォームを更新
-            turbo_stream.replace('shopping_form', partial: 'posts/shopping_form', locals: { post_form: @post_form })
-          ]
-        end
-      end
+    render turbo_stream: [
+      turbo_stream.append("shopping_list", partial: "shopping_lists/item", locals: { items: @items }),
+      turbo_stream.replace("shopping_list_form", partial: "posts/form", locals: { post_form: PostForm.new })  # 新しいフォームに置き換える
+    ]
+    else
+      flash.now[:alert] = "アイテムの追加に失敗しました"
+      render :new, status: :unprocessable_entity
     end
+  end
 
   private
 
@@ -62,7 +53,7 @@ class PostsController < ApplicationController
     params.require(:post_form).permit(
       :sum, :memo,  # Post の属性
       :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,  # Menu の属性
-      :meat_fish, :vegetable, :other,  # カンマ区切りの文字列で受け取る
+      :meat_fish, :vegetable, :other
     )
   end
 end

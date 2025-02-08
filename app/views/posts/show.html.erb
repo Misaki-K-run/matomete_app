@@ -36,15 +36,15 @@
     <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
     <div class="mb-4">
       <h4 class="text-lg font-semibold">肉、魚類</h4>
-      <p class="text-gray-700"><%= @post.shopping_list.meat_fish if @post.shopping_list %></p>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'meat_fish').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
     </div>
     <div class="mb-4">
       <h4 class="text-lg font-semibold">野菜</h4>
-      <p class="text-gray-700"><%= @post.shopping_list.vegetable if @post.shopping_list %></p>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'vegetable').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
     </div>
     <div class="mb-4">
       <h4 class="text-lg font-semibold">その他</h4>
-      <p class="text-gray-700"><%= @post.shopping_list.other if @post.shopping_list %></p>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'other').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
     </div>
 
     <!-- メモ -->

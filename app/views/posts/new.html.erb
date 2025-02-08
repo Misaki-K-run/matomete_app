@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto">
       <h3 class="text-2xl font-bold text-center mb-6">一週間の献立表</h3>
-      <%= form_with model: @post_form, url: posts_path, class: "new_post" do |f| %>
+      <%= form_with model: @post_form, url: posts_path, local: true , class: "new_post" do |f| %>
 
       <!--一週間のメニュー-->
     <%= f.label :monday, "月曜日", class: "block text-lg font-medium mb-2" %>
@@ -27,33 +27,20 @@
 
       <!--買い物リスト入力画面-->
 
-<h3>買い物リスト</h3>
-<%= render partial: 'posts/shopping_form', locals: { post_form: @post_form } %>
 
-<%= turbo_stream_from 'shopping_form' %>
-<turbo-stream action="replace" target="shopping_form" cache="false">
-  <template>
-    <%= render partial: 'posts/shopping_form', locals: { post_form: @post_form } %>
-  </template>
-</turbo-stream>
+  <%= render 'form', post_form: @post_form %>
 
-  <!--ショッピングリスト-->
+
+      <!--買い物リスト-->
+  <%= turbo_stream_from "shopping_list" %>
+
 <div id="shopping_list">
-  <ul>
-    <% @post_form.meat_fish_array.each do |item| %>
-      <li><%= item %></li>
-    <% end %>
-    <% @post_form.vegetable_array.each do |item| %>
-      <li><%= item %></li>
-    <% end %>
-    <% @post_form.other_array.each do |item| %>
-      <li><%= item %></li>
-    <% end %>
-  </ul>
+  <%= turbo_stream.append "shopping_list" do %>
+    <%= render partial: "shopping_lists/item", locals: { items: @items } %>
+  <% end %>
 </div>
-<!-- Turbo Streamからの更新を受ける -->
 
-  <%= turbo_stream_from 'shopping_list' %>
+
 
       <!--ポスト-->
       <div class="mb-4">
@@ -66,8 +53,8 @@
       </div>
     <div class="mb-4">
       <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-      <% end %>
     </div>
+    <% end %>
   </div>
 </div>
 
