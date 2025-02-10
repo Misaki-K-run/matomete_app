@@ -5,6 +5,10 @@ class PostsController < ApplicationController
     @posts = Post.includes(:user, :menu, :shopping_lists)
   end
 
+  def mypage
+    @posts = current_user.posts.order(created_at: :desc)
+  end
+
   def new
     @post_form = PostForm.new
   end

@@ -1,0 +1,15 @@
+
+  <div id="shopping_list">
+    <ul>
+      <% @post_form.meat_fish_array.each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+      <% @post_form.vegetable_array.each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+      <% @post_form.other_array.each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </div>
+

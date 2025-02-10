@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
 
+  # マイページ
+  get 'mypage', to: 'posts#mypage'
+
   # 投稿
   resources :posts, only: %i[index new create show edit destroy] do
     post "add_item", on: :collection
