@@ -1,0 +1,47 @@
+<div class="flex flex-col items-center justify-center min-h-screen w-full">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
+    <div class="text-center mb-8">
+      <h1 class="text-xl font-bold">マイページ 編集</h1>
+    </div>
+<%= form_with model: @user, url: edit_mypage_path(@user), method: :put do |f| %>
+    <% if @user.errors.any? %>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+<!-- マイページフォーム -->
+    <div class="space-y-4">
+      <div class="field">
+        <%= f.label :name,"ユーザー名", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_field :name, autofocus: true, class: "input input-bordered w-full max-w-xs", placeholder: "ユーザー名" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, class: "input input-bordered w-full max-w-xs", placeholder: "Email", autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :budget,"予算", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :budget, class: "input input-bordered w-full max-w-xs", placeholder: "予算" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :people,"人数", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :people, class: "input input-bordered w-full max-w-xs", placeholder: "人数" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :introduction,"ひとこと", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_area :introduction, class: "input input-bordered w-full max-w-xs", placeholder: "ひとこと" %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "登録", class: "btn w-full" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
