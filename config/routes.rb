@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # 投稿
   resources :posts, only: %i[index new create show] do
-    post 'add_item', on: :collection
+    post "add_item", on: :collection
   end
 
   # Health check ルート（アップタイムモニタリング用）

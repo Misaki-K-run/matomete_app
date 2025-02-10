@@ -7,7 +7,6 @@ class PostsController < ApplicationController
 
   def new
     @post_form = PostForm.new
-
   end
 
   def create
