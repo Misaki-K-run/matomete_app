@@ -60,10 +60,10 @@ class PostForm
 
   def create_shopping_list(post)
     # アイテムを登録
+    shopping_lists = []
     { meat_fish: meat_fish, vegetable: vegetable, other: other }.each do |category, value|
       next if value.blank?
-
-      ShoppingList.create!(
+      shopping_lists << ShoppingList.create!(
         post_id: post.id,
         category: category,
         name: value

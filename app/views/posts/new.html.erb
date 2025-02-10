@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto">
       <h3 class="text-2xl font-bold text-center mb-6">一週間の献立表</h3>
-      <%= form_with model: @post_form, url: posts_path, local: true , class: "new_post" do |f| %>
+      <%= form_with model: @post_form, url: posts_path, data: { turbo: true },class: "new_post" do |f| %>
 
       <!--一週間のメニュー-->
     <%= f.label :monday, "月曜日", class: "block text-lg font-medium mb-2" %>
@@ -25,11 +25,39 @@
     <%= f.label :sunday, "日曜日", class: "block text-lg font-medium mb-2" %>
     <%= f.text_area :sunday,class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
+    <!--ポスト-->
+      <div class="mb-4">
+        <%= f.label :memo, "メモ", class: "block text-lg font-medium mb-2" %>
+        <%= f.text_field :memo, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "メモを入力" %>
+      </div>
+      <div class="mb-4">
+        <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
+        <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
+      </div>
       <!--買い物リスト入力画面-->
+  <turbo-frame id="shopping_list_form">
+  <%#= form_with(model: @post_form, url: posts_path, local: true) do |f| %>
+    <div>
+      <%= f.label :meat_fish %>
+      <%= f.text_field :meat_fish %>
+      <%= button_tag "Add Meat/Fish", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
 
+    <div>
+      <%= f.label :vegetable %>
+      <%= f.text_field :vegetable %>
+      <%= button_tag "Add Vegetable", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
 
-  <%= render 'form', post_form: @post_form %>
+    <div>
+      <%= f.label :other %>
+      <%= f.text_field :other %>
+      <%= button_tag "Add Other", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
 
+</turbo-frame>
+
+  <%#= render 'form', post_form: @post_form %>
 
       <!--買い物リスト-->
   <%= turbo_stream_from "shopping_list" %>
@@ -39,18 +67,6 @@
     <%= render partial: "shopping_lists/item", locals: { items: @items } %>
   <% end %>
 </div>
-
-
-
-      <!--ポスト-->
-      <div class="mb-4">
-        <%= f.label :memo, "メモ", class: "block text-lg font-medium mb-2" %>
-        <%= f.text_field :memo, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "メモを入力" %>
-      </div>
-      <div class="mb-4">
-        <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
-        <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
-      </div>
     <div class="mb-4">
       <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>

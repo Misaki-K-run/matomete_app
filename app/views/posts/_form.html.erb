@@ -1,6 +1,5 @@
-<!-- _shopping_list_form.html.erb -->
 <turbo-frame id="shopping_list_form">
-  <%= form_with(model: post_form, url: posts_path, local: true) do |f| %>
+  <%= form_with(model: post_form, url: posts_path) do |f| %>
     <div>
       <%= f.label :meat_fish %>
       <%= f.text_field :meat_fish %>
