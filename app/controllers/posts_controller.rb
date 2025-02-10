@@ -13,25 +13,18 @@ class PostsController < ApplicationController
     @post_form = PostForm.new(post_form_params)
     @post_form.user_id = current_user.id  # ログインユーザーをセット
 
-    Rails.logger.debug("POSTリクエストが送信されました: #{@post_form.inspect}")
 
     if @post_form.save
       @post = @post_form.post
-      Rails.logger.debug("Postが保存されました: #{@post_form.post.inspect}")
       redirect_to posts_path, notice: "投稿できました"
     else
-      Rails.logger.debug("Post Form Errors: #{@post_form.errors.full_messages}")
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
   end
 
-  def show
-    @post= Post.find(params[:id])
-  end
-
   def add_item
-     @post = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
     @post_form = PostForm.new(post_form_params)
     @post_form.user_id = current_user.id  # ログインユーザーをセット
 
@@ -39,7 +32,6 @@ class PostsController < ApplicationController
       @post = @post_form.post  # 保存した Post オブジェクトを取得
 
       @items = ShoppingList.where(post_id: @post.id)
-
 
     render turbo_stream: [
       turbo_stream.append("shopping_list", partial: "shopping_lists/item", locals: { items: @items }),
@@ -49,6 +41,16 @@ class PostsController < ApplicationController
       flash.now[:alert] = "アイテムの追加に失敗しました"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @post= Post.find(params[:id])
+  end
+
+  def destroy
+    board = current_user.posts.find(params[:id])
+    board.destroy!
+    redirect_to posts_path, notice: "投稿を削除しました", status: :see_other
   end
 
   private

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   }
 
   # 投稿
-  resources :posts, only: %i[index new create show] do
+  resources :posts, only: %i[index new create show edit destroy] do
     post "add_item", on: :collection
   end
 
