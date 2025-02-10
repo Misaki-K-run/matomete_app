@@ -1,0 +1,21 @@
+<turbo-frame id="shopping_list_form">
+  <%= form_with(model: post_form, url: posts_path) do |f| %>
+    <div>
+      <%= f.label :meat_fish %>
+      <%= f.text_field :meat_fish %>
+      <%= button_tag "Add Meat/Fish", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+
+    <div>
+      <%= f.label :vegetable %>
+      <%= f.text_field :vegetable %>
+      <%= button_tag "Add Vegetable", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+
+    <div>
+      <%= f.label :other %>
+      <%= f.text_field :other %>
+      <%= button_tag "Add Other", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+  <% end %>
+</turbo-frame>

@@ -5,5 +5,5 @@ class Post < ApplicationRecord
   # 関連付け
   belongs_to :user
   has_one :menu, dependent: :destroy
-  has_one :shopping_list, dependent: :destroy
+  has_many :shopping_lists, dependent: :destroy
 end

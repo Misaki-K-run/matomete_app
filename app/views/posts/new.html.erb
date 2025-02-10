@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto">
       <h3 class="text-2xl font-bold text-center mb-6">一週間の献立表</h3>
-      <%= form_with model: @post_form, url: posts_path, class: "new_post" do |f| %>
+      <%= form_with model: @post_form, url: posts_path, data: { turbo: true },class: "new_post" do |f| %>
 
       <!--一週間のメニュー-->
     <%= f.label :monday, "月曜日", class: "block text-lg font-medium mb-2" %>
@@ -25,37 +25,7 @@
     <%= f.label :sunday, "日曜日", class: "block text-lg font-medium mb-2" %>
     <%= f.text_area :sunday,class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <!--買い物リスト入力画面-->
-        <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
-        <div id="shopping-list-container">
-          <div class="mb-4" id="meat-fields">
-            <%= f.label :meat_fish, "肉、魚類", class: "block text-lg font-medium mb-2 bg-red-300 text-white" %>
-            <%= f.text_field :meat_fish, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
-
-          <div class="mb-4" id="vegetable-fields">
-            <%= f.label :vegetable, "野菜", class: "block text-lg font-medium mb-2 bg-green-600 text-white" %>
-            <%= f.text_field :vegetable, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
-
-          <div class="mb-4" id="other-fields">
-            <%= f.label :other, "その他", class: "block text-lg font-medium mb-2 bg-yellow-400 text-white" %>
-            <%= f.text_field :other, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button" class="add-item-btn bg-slate-300 p-2 rounded mt-2">追加</button>
-          </div>
-</div>
-        </div>
-      <!--リスト一覧-->
-        <div class="bg-red-300 text-white w-full text-center">肉、魚類</div>
-        <div id="meat-items"></div>
-        <div class="bg-green-600 text-white w-full text-center">野菜</div>
-        <div id="vegetable-items"></div>
-        <div class="bg-yellow-400 text-white w-full text-center">その他</div>
-        <div id="other-items"></div>
-
-      <!--ポスト-->
+    <!--ポスト-->
       <div class="mb-4">
         <%= f.label :memo, "メモ", class: "block text-lg font-medium mb-2" %>
         <%= f.text_field :memo, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "メモを入力" %>
@@ -64,55 +34,43 @@
         <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
         <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
       </div>
+      <!--買い物リスト入力画面-->
+  <turbo-frame id="shopping_list_form">
+  <%#= form_with(model: @post_form, url: posts_path, local: true) do |f| %>
+    <div>
+      <%= f.label :meat_fish %>
+      <%= f.text_field :meat_fish %>
+      <%= button_tag "Add Meat/Fish", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+
+    <div>
+      <%= f.label :vegetable %>
+      <%= f.text_field :vegetable %>
+      <%= button_tag "Add Vegetable", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+
+    <div>
+      <%= f.label :other %>
+      <%= f.text_field :other %>
+      <%= button_tag "Add Other", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
+    </div>
+
+</turbo-frame>
+
+  <%#= render 'form', post_form: @post_form %>
+
+      <!--買い物リスト-->
+  <%= turbo_stream_from "shopping_list" %>
+
+<div id="shopping_list">
+  <%= turbo_stream.append "shopping_list" do %>
+    <%= render partial: "shopping_lists/item", locals: { items: @items } %>
+  <% end %>
+</div>
     <div class="mb-4">
       <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-      <% end %>
     </div>
+    <% end %>
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 追加ボタンをクリックしたときの処理
-  const addItemButtons = document.querySelectorAll('.add-item-btn');
-
-  addItemButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      const button = e.target;
-      const containerId = button.parentElement.id; // meat_fish-fields, vegetable-fields, other-fields
-      const itemType = containerId.split('-')[0]; // 'meat_fish', 'vegetable', 'other'
-      const inputField = button.previousElementSibling; // テキストエリア
-
-      // 入力フィールドが空でないかをチェック
-      if (inputField.value.trim() !== '') {
-        // 新しいアイテムを追加するためのdivを作成
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('item', 'border-b', 'border-gray-300', 'py-1');
-
-        // 新しいアイテムの内容
-        itemContainer.innerHTML = `
-          <span class="item-text">${inputField.value}</span>
-          <button type="button" class="remove-item-btn text-red-500 ml-2">削除</button>
-        `;
-
-        // アイテムを表示する場所に追加
-        document.getElementById(`${itemType}-items`).appendChild(itemContainer);
-
-        // 入力フィールドをクリア
-        inputField.value = '';
-
-        // 削除ボタンのイベントリスナーを追加
-        const removeButton = itemContainer.querySelector('.remove-item-btn');
-        removeButton.addEventListener('click', () => {
-          itemContainer.remove();
-        });
-      } else {
-        // 空欄の場合は何もしない
-        alert('入力欄が空です。');
-      }
-    });
-  });
-});
-
-
-</script>

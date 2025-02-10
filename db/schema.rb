@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_04_042607) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_06_053526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,9 +39,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_04_042607) do
 
   create_table "shopping_lists", force: :cascade do |t|
     t.bigint "post_id", null: false
-    t.text "meat_fish"
-    t.text "vegetable"
-    t.text "other"
+    t.string "category"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_shopping_lists_on_post_id"

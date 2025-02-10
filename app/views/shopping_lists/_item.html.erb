@@ -1,0 +1,7 @@
+<% if items.present? %>
+  <% items.each do |item| %>
+    <div id="item_<%= item.id %>">
+      <p><%= item.category.capitalize %>: <%= item.name %></p>
+    </div>
+  <% end %>
+<% end %>
