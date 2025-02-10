@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   }
 
   # マイページ
-  get 'mypage', to: 'posts#mypage'
+  get "mypage", to: "posts#mypage"
 
   # 投稿
   resources :posts, only: %i[index new create show edit destroy] do
