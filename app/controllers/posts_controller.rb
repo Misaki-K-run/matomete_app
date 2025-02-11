@@ -17,7 +17,6 @@ class PostsController < ApplicationController
     @post_form = PostForm.new(post_form_params)
     @post_form.user_id = current_user.id  # ログインユーザーをセット
 
-
     if @post_form.save
       @post = @post_form.post
       redirect_to posts_path, notice: "投稿できました"

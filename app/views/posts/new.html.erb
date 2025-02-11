@@ -58,7 +58,10 @@
 </turbo-frame>
 
   <%#= render 'form', post_form: @post_form %>
-
+    <div class="mb-4">
+      <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+    <% end %>
       <!--買い物リスト-->
   <%= turbo_stream_from "shopping_list" %>
 
@@ -67,10 +70,7 @@
     <%= render partial: "shopping_lists/item", locals: { items: @items } %>
   <% end %>
 </div>
-    <div class="mb-4">
-      <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-    </div>
-    <% end %>
+
   </div>
 </div>
 
