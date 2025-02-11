@@ -1,4 +1,4 @@
-class MypagesController < ApplicationController
+class UsersController < ApplicationController
   before_action :set_user, only: %i[edit update]
 
   def edit; end
@@ -7,6 +7,7 @@ class MypagesController < ApplicationController
     if @user.update(user_params)
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
+      Rails.logger.debug @user.errors.full_messages
       flash.now['danger'] = "プロフィールの更新が失敗しました"
       render :edit, status: :unprocessable_entity
     end

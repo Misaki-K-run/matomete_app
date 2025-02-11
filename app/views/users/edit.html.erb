@@ -3,7 +3,7 @@
     <div class="text-center mb-8">
       <h1 class="text-xl font-bold">マイページ 編集</h1>
     </div>
-<%= form_with model: @user, url: edit_mypage_path(@user), method: :put do |f| %>
+<%= form_with model: @user, url: update_path, method: :patch , local: true, html: { multipart: true } do |f| %>
     <% if @user.errors.any? %>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
@@ -25,7 +25,7 @@
 
       <div class="field">
         <%= f.label :budget,"予算", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.number_field :budget, class: "input input-bordered w-full max-w-xs", placeholder: "予算" %>
+        <%= f.number_field :budget, class: "input input-bordered w-full max-w-xs", placeholder: "一週間分の予算" %>
       </div>
 
       <div class="field">
