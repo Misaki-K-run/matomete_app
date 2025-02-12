@@ -16,17 +16,21 @@ class PostForm
   attribute :saturday, :string
   attribute :sunday, :string
 
-  # ShoppingList の属性
-  attribute :meat_fish, :string
-  attribute :vegetable, :string
-  attribute :other, :string
+  # ショッピングリストのアイテム
+  attr_accessor :shopping_list_items
 
   # バリデーション
   validates :memo, length: { maximum: 1000 }
   validates :sum, numericality: { only_integer: true }, allow_nil: true
   validates :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, length: { maximum: 2000 }
-  validates :meat_fish, :vegetable, :other, length: { maximum: 2000 }
 
+  # 初期化
+  def initialize(attributes = {})
+    super(attributes)
+    @shopping_list_items ||= []
+  end
+
+  # Post、Menu、ShoppingListを保存するメソッド
   def save
     return false unless valid?
 
@@ -35,7 +39,7 @@ class PostForm
       @post = Post.create!(memo: memo, sum: sum, user_id: user_id)
 
       # Menuの作成
-      Menu.create!(
+      menu = Menu.create!(
         post_id: @post.id,
         monday: monday,
         tuesday: tuesday,
@@ -46,28 +50,16 @@ class PostForm
         sunday: sunday
       )
       # ShoppingListの作成
-      create_shopping_list(@post)
+      shopping_list_items.each do |item|
+        ShoppingList.create!(
+          post_id: @post.id,
+          name: item[:name],
+          category: item[:category]
+        )
+      end
     end
     true
   rescue ActiveRecord::RecordInvalid
     false
-  end
-
-    # Postオブジェクトを返すメソッド
-    def post
-      @post
-    end
-
-  def create_shopping_list(post)
-    # アイテムを登録
-    shopping_lists = []
-    { meat_fish: meat_fish, vegetable: vegetable, other: other }.each do |category, value|
-      next if value.blank?
-      shopping_lists << ShoppingList.create!(
-        post_id: post.id,
-        category: category,
-        name: value
-      )
-    end
   end
 end
