@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true
 
+  mount_uploader :avatar, AvatarUploader
+
   # 関連付け
   has_many :posts, dependent: :destroy
 
