@@ -38,8 +38,22 @@
         <%= f.text_area :introduction, class: "input input-bordered w-full max-w-xs", placeholder: "ひとこと" %>
       </div>
 
+      <div class="field">
+        <%= f.label :avatar,"アバター"%>
+        <div class="file-input-container">
+          <%= f.file_field :avatar, class: 'file-input file-input-bordered w-full max-w-xs', accept: 'image/*', id: 'avatar_input' %>
+          <%= f.hidden_field :avatar_cache %>
+        </div>
+      </div>
+
+      <div class='mt-3 mb-3'>
+        <%= image_tag @user.avatar.url,
+                class: 'rounded-full w-24 h-24',
+                id: 'preview' %>
+      </div>
+
       <div class="text-center">
-        <%= f.submit "登録", class: "btn w-full" %>
+        <%= f.submit "更新", class: "btn w-full" %>
       </div>
     </div>
     <% end %>

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
       Rails.logger.debug @user.errors.full_messages
-      flash.now['danger'] = "プロフィールの更新が失敗しました"
+      flash.now["danger"] = "プロフィールの更新が失敗しました"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -22,6 +22,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :name, :budget, :people, :introduction)
+    params.require(:user).permit(:email, :name, :budget, :people, :introduction, :avatar)
   end
 end
