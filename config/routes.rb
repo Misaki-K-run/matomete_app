@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   patch "update" => "users#update"
 
   # 投稿
-  resources :posts, only: %i[index new create show edit destroy] do
-    post "add_item", on: :collection
-  end
+  resources :posts, only: %i[index new create show edit destroy]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

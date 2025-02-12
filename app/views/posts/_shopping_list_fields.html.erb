@@ -1,0 +1,5 @@
+<div class="shopping-list-item">
+  <%= f.text_field :name, placeholder: "Item name" %>
+  <%= f.select :category, options_for_select(['meat_fish', 'vegetable', 'other']) %>
+  <%= f.check_box :_destroy %> Remove
+</div>

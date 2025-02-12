@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto">
       <h3 class="text-2xl font-bold text-center mb-6">一週間の献立表</h3>
-      <%= form_with model: @post_form, url: posts_path, data: { turbo: true },class: "new_post" do |f| %>
+      <%= form_with model: @post_form, url: posts_path,data: { turbo: false },class: "new_post" do |f| %>
 
       <!--一週間のメニュー-->
     <%= f.label :monday, "月曜日", class: "block text-lg font-medium mb-2" %>
@@ -34,43 +34,72 @@
         <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
         <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
       </div>
-      <!--買い物リスト入力画面-->
-  <turbo-frame id="shopping_list_form">
-  <%#= form_with(model: @post_form, url: posts_path, local: true) do |f| %>
-    <div>
-      <%= f.label :meat_fish %>
-      <%= f.text_field :meat_fish %>
-      <%= button_tag "Add Meat/Fish", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
-    </div>
 
-    <div>
-      <%= f.label :vegetable %>
-      <%= f.text_field :vegetable %>
-      <%= button_tag "Add Vegetable", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
-    </div>
+  <!--買い物リスト入力画面-->
+  <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
+  <div id="shopping-list-container">
+    <% ['meat_fish', 'vegetable', 'other'].each do |category| %>
+      <div class="mb-4" id="<%= category %>-fields">
+        <%= f.label category, category == 'meat_fish' ? '肉・魚' : category == 'vegetable' ? '野菜' : 'その他', class: "block text-lg font-medium mb-2", for: "post_form_#{category}" %>
+        <input type="text" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        <button type="button" class="add-item-btn bg-green-500 text-white p-2 rounded mt-2">追加</button>
+      </div>
+    <% end %>
+  </div>
 
-    <div>
-      <%= f.label :other %>
-      <%= f.text_field :other %>
-      <%= button_tag "Add Other", type: 'submit', formaction: add_item_posts_path, data: { turbo_action: 'replace' } %>
-    </div>
+  <!-- リスト表示 -->
+  <% ['meat_fish', 'vegetable', 'other'].each do |category| %>
+    <div class="bg-gray-300 text-white w-full text-center"> <%= category == 'meat_fish' ? '肉・魚' : category == 'vegetable' ? '野菜' : 'その他' %></div>
+    <div id="<%= category %>-items"></div>
+  <% end %>
 
-</turbo-frame>
-
-  <%#= render 'form', post_form: @post_form %>
     <div class="mb-4">
       <%= f.submit "投稿", class: "w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
     <% end %>
-      <!--買い物リスト-->
-  <%= turbo_stream_from "shopping_list" %>
-
-<div id="shopping_list">
-  <%= turbo_stream.append "shopping_list" do %>
-    <%= render partial: "shopping_lists/item", locals: { items: @items } %>
-  <% end %>
-</div>
 
   </div>
 </div>
+
+<script>
+  // ページのDOM（HTML構造）
+  document.addEventListener("turbo:load", () => {
+    //.add-item-btn ボタンを選択
+    document.querySelectorAll('.add-item-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+
+        // inputFieldとcategoryを取得
+        const container = e.target.parentElement;
+        const inputField = container.querySelector('input[type="text"]');
+        const category = container.id.replace('-fields', '');
+
+        // 入力が空でないかを確認
+        if (!inputField.value.trim()) return;
+
+        // アイテムのHTML要素を作成
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('item', 'border-b', 'border-gray-300', 'py-1');
+        itemContainer.innerHTML = `
+          <span class="item-text">${inputField.value}</span>
+          <input type="hidden" name="post_form[shopping_list_items][][name]" value="${inputField.value}">
+          <input type="hidden" name="post_form[shopping_list_items][][category]" value="${category}">
+          <button type="button" class="remove-item-btn text-red-500 ml-2">削除</button>
+        `;
+
+        // 作成したアイテムを表示エリアに追加
+        document.getElementById(`${category}-items`).appendChild(itemContainer);
+
+        // 入力フィールドをクリア
+        inputField.value = '';
+
+        // 削除ボタンにクリックイベントを追加
+        itemContainer.querySelector('.remove-item-btn').addEventListener('click', () => {
+          itemContainer.remove();
+        });
+      });
+    });
+  });
+</script>
+
+
 

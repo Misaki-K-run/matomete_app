@@ -1,15 +1,15 @@
 <a href="<%= post_path(post) %>" class="block w-full">
-<div class="card bg-base-100 w-full max-w-xs shadow-xl hover:shadow-2xl transition">
-  <div class="card-body">
-    <div class="overflow-x-auto">
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>一週間の献立表</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="card bg-base-100 w-full max-w-xs shadow-xl hover:shadow-2xl transition">
+    <div class="card-body">
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>一週間の献立表</th>
+            </tr>
+          </thead>
+          <tbody>
       <tr>
         <th>月</th>
         <td><%= post.menu.monday if post.menu %></td>
@@ -38,25 +38,33 @@
         <th>日</th>
         <td><%=post.menu.sunday if post.menu %></td>
       </tr>
-    </tbody>
-  </table>
-</div>
+          </tbody>
+        </table>
+      </div>
+    <!-- 一週間の合計 -->
     <% if post.sum.present? %>
         <div class="flex justify-end">
           <h3 class="card-title">合計: <%= post.sum %>円</h3>
         </div>
     <% end %>
-    <!--user image,buget,people追加後変更する-->
+    <!-- ユーザー情報 -->
     <div class="avatar">
       <div class="w-24 rounded-full">
-      <%= image_tag 'user-icon.png' %>
+      <%= image_tag post.user&.avatar.present? ? post.user.avatar.url : 'user-icon.png' %>
     </div>
-    <div class="card-actions">
-      <div class="flex flex-col items-center space-y-2">
-        <div class="badge badge-outline">予算</div>
-        <div class="badge badge-outline">人数</div>
+
+    <div class="card-actions flex justify-end">
+      <div class="flex flex-col items-end space-y-2">
+        <% if post.user.budget.present? %>
+          <div class="badge badge-outline">予算: <%= post.user.budget %>円</div>
+        <% end %>
+
+        <% if post.user.people.present? %>
+          <div class="badge badge-outline">人数: <%= post.user.people %>人</div>
+        <% end %>
+      </div>
+    </div>
       </div>
     </div>
   </div>
-</div>
 </a>
