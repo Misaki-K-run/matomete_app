@@ -62,4 +62,52 @@ class PostForm
   rescue ActiveRecord::RecordInvalid
     false
   end
+
+  def update(post)
+    return false unless valid?
+
+    ActiveRecord::Base.transaction do
+      # Postの更新
+      post.update!(memo: memo, sum: sum)
+
+      # Menuの更新
+      menu = post.menu
+      menu.update!(
+        monday: monday,
+        tuesday: tuesday,
+        wednesday: wednesday,
+        thursday: thursday,
+        friday: friday,
+        saturday: saturday,
+        sunday: sunday
+      )
+
+    # ShoppingListの更新
+    existing_items = post.shopping_lists.index_by { |item| [item.name, item.category] }
+
+    # 新しく送信されたアイテムの処理
+    new_items = shopping_list_items.map { |item| [item[:name], item[:category]] }
+
+    # 追加・更新
+    shopping_list_items.each do |item|
+      if existing_items.key?([item[:name], item[:category]])
+        # 既存アイテムは更新（今回は特に変更することはないのでスキップ可）
+        existing_items.delete([item[:name], item[:category]])
+      else
+        # 新規アイテムは作成
+        post.shopping_lists.create!(name: item[:name], category: item[:category])
+      end
+    end
+    puts "削除前: #{post.shopping_lists.pluck(:id, :name)}"
+    # 削除されたアイテムを削除
+    items_to_delete = existing_items.keys - new_items
+    items_to_delete.each do |key|
+      existing_items[key].destroy!
+    end
+    puts "削除後: #{ShoppingList.where(post_id: post.id).pluck(:id, :name)}"
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
 end
