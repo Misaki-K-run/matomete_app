@@ -83,16 +83,16 @@ class PostForm
       )
 
     # ShoppingListの更新
-    existing_items = post.shopping_lists.index_by { |item| [item.name, item.category] }
+    existing_items = post.shopping_lists.index_by { |item| [ item.name, item.category ] }
 
     # 新しく送信されたアイテムの処理
-    new_items = shopping_list_items.map { |item| [item[:name], item[:category]] }
+    new_items = shopping_list_items.map { |item| [ item[:name], item[:category] ] }
 
     # 追加・更新
     shopping_list_items.each do |item|
-      if existing_items.key?([item[:name], item[:category]])
+      if existing_items.key?([ item[:name], item[:category] ])
         # 既存アイテムは更新（今回は特に変更することはないのでスキップ可）
-        existing_items.delete([item[:name], item[:category]])
+        existing_items.delete([ item[:name], item[:category] ])
       else
         # 新規アイテムは作成
         post.shopping_lists.create!(name: item[:name], category: item[:category])
