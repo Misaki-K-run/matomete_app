@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @posts = Post.includes(:user, :menu, :shopping_lists)
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).includes(:user, :menu, :shopping_lists)
   end
 
   def mypage
@@ -15,7 +16,7 @@ class PostsController < ApplicationController
 
   def create
     @post_form = PostForm.new(post_form_params)
-    @post_form.user_id = current_user.id  # ログインユーザーをセット
+    @post_form.user_id = current_user.id
 
     if @post_form.save
       redirect_to posts_path, notice: "投稿できました"

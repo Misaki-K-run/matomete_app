@@ -11,6 +11,9 @@ gem "rails-i18n"
 # 画像アップロード
 gem "carrierwave", "2.2.2"
 
+# 検索機能
+gem "ransack"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

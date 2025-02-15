@@ -16,4 +16,9 @@ class User < ApplicationRecord
   def own?(post)
     id == post.user_id
   end
+
+  # ransack
+  def self.ransackable_attributes(auth_object = nil)
+    [ "people", "budget" ]
+  end
 end
