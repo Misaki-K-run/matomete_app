@@ -1,0 +1,30 @@
+<%= search_form_for @q, url: url, method: :get, html: { class: "flex gap-4" } do |f| %>
+  <!-- 予算（budget）検索 -->
+  <label class="flex items-center gap-2">
+
+    <%= f.select :user_budget_lteq, [
+        ["〜5,000円", "5000"],
+        ["〜10,000円", "10000"],
+        ["〜15,000円", "15000"],
+        ["〜20,000円", "20000"],
+        ["〜30,000円", "30000"],
+        ["〜40,000円", "40000"],
+        ["〜50,000円", "50000"]
+      ],
+      { prompt: "予算を選択してください" },
+      { class: "select select-bordered" } %>
+
+  </label>
+
+  <!-- 人数（people）検索 -->
+  <label class="flex items-center gap-2">
+    <%= f.number_field :user_people_eq, placeholder: "人数", class: "input input-bordered w-20" %>
+  </label>
+
+  <button type="submit" class="btn bg-primary text-base-100 rounded-full">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16 11a5 5 0 11-10 0 5 5 0 0110 0z" />
+    </svg>
+  </button>
+
+<% end %>
