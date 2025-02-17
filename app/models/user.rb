@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   # 関連付け
   has_many :posts, dependent: :destroy
+  has_many :ai_generates, dependent: :destroy
 
   def own?(post)
     id == post.user_id
