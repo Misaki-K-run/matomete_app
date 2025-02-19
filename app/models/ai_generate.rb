@@ -5,5 +5,6 @@ class AiGenerate < ApplicationRecord
   validates :shopping_list_response, presence: true
   validates :sum_response, presence: true
   validates :special_request, length: { maximum: 100 }
+
   belongs_to :user
 end

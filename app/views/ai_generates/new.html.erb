@@ -7,15 +7,26 @@
 
     <%= form_with model: @ai_generate, local: true do |f| %>
 
+      <% if @ai_generate.errors.any? %>
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+          <p class="font-bold">入力エラーがあります:</p>
+            <ul class="list-disc pl-5">
+            <% @ai_generate.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+      <% end %>
+
       <div class="space-y-4">
       <div class="field">
         <%= f.label :budget_request,"一週間の予算（必須）", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.number_field :budget_request, class: "input input-bordered w-full max-w-xs", placeholder: "予算を入力" %>
+        <%= f.number_field :budget_request, value: current_user.budget, class: "input input-bordered w-full max-w-xs", placeholder: "予算を入力" %>
       </div>
 
       <div class="field">
-        <%= f.label :people_request,"人数 (必須)",class: "block text-sm font-medium text-gray-700" %>
-        <%= f.number_field :people_request, class: "input input-bordered w-full max-w-xs", placeholder: "人数を入力" %>
+        <%= f.label :people_request,"人数 (必須)", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :people_request, value:current_user.people, class: "input input-bordered w-full max-w-xs", placeholder: "人数を入力" %>
       </div>
 
       <div class="field">
