@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_11_091728) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_17_082352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ai_generates", force: :cascade do |t|
+    t.integer "budget_request", null: false
+    t.string "people_request", null: false
+    t.text "allergies"
+    t.text "favorite_ingredients"
+    t.jsonb "menu_response", default: {}, null: false
+    t.jsonb "shopping_list_response", default: {}, null: false
+    t.integer "sum_response", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "special_request"
+    t.index ["user_id"], name: "index_ai_generates_on_user_id"
+  end
 
   create_table "menus", force: :cascade do |t|
     t.bigint "post_id"
@@ -63,6 +78,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_091728) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "ai_generates", "users"
   add_foreign_key "menus", "posts"
   add_foreign_key "posts", "users"
   add_foreign_key "shopping_lists", "posts"
