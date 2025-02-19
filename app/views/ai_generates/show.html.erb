@@ -1,38 +1,27 @@
-<div class="container mx-auto min-h-screen">
-<h2>一週間の献立</h2>
-<ul>
-  <% @ai_generate.menu_response.each do |day, meals| %>
-    <li><strong><%= day %>:</strong>
-      <ul>
-        <% meals.each do |meal| %>
-          <li><%= meal %></li>
-        <% end %>
-      </ul>
+<div class="container mx-auto pb-10">
+  <h2 class="text-xl font-bold my-4">一週間の献立</h2>
+  <ul class="list-disc pl-6 mb-6">
+    <% @ai_generate.menu_response.each do |day, meals| %>
+      <li class="mb-3"><strong><%= day %>:</strong>
+        <ul class="list-disc pl-6 mt-1">
+          <% meals.each do |meal| %>
+            <li><%= meal %></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 class="text-xl font-bold my-4">買い物リスト</h2>
+  <ul class="list-disc mb-6 pl-5">
+  <% @ai_generate.shopping_list_response.each do |item| %>
+    <li><%= item["item"] %>: <%= item["quantity"] %> 
+      <% if item["estimated_price"].present? %>
+        (約<%= item["estimated_price"] %>円)
+      <% end %>
     </li>
   <% end %>
-</ul>
+  </ul>
 
-<h2>買い物リスト</h2>
-<ul>
-  <% @ai_generate.shopping_list_response.each do |category, items| %>
-    <li><strong>
-      <% case category %>
-      <% when "meat_fish" %>
-        <%= "肉・魚" %>
-      <% when "vegetables" %>
-        <%= "野菜" %>
-      <% else %>
-        <%= category.capitalize %>  <!-- 他のカテゴリーもそのまま表示 -->
-      <% end %>:
-    </strong>
-      <ul>
-        <% items.each do |item| %>
-          <li><%= item["item"] %>: <%= item["quantity"] %></li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-</ul>
-
-<h2>予想される合計金額: <%= @ai_generate.sum_response %> 円</h2>
+  <h2 class="text-xl font-bold mb-10">予想される合計金額: <%= @ai_generate.sum_response %> 円</h2>
 </div>

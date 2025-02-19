@@ -1,5 +1,4 @@
 class AiGeneratesController < ApplicationController
-
   def new
     @ai_generate = AiGenerate.new
   end
@@ -36,5 +35,4 @@ class AiGeneratesController < ApplicationController
   def ai_generate_params
     params.require(:ai_generate).permit(:budget_request, :people_request, :allergies, :favorite_ingredients, :special_request)
   end
-
 end

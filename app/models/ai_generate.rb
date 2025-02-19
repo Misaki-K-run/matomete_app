@@ -6,5 +6,4 @@ class AiGenerate < ApplicationRecord
   validates :sum_response, presence: true
   validates :special_request, length: { maximum: 100 }
   belongs_to :user
-
 end

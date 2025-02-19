@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :posts, only: %i[index new create show edit update destroy]
 
   # AI自動生成
-  resources :ai_generates, only: [:new, :create, :show]
+  resources :ai_generates, only: [ :new, :create, :show ]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check
