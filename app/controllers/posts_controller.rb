@@ -28,6 +28,7 @@ class PostsController < ApplicationController
 
   def show
     @post= Post.find(params[:id])
+    @user = @post.user
   end
 
   def edit
@@ -69,8 +70,8 @@ class PostsController < ApplicationController
 
   def post_form_params
     params.require(:post_form).permit(
-      :sum, :memo,  # Post の属性
-      :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,  # Menu の属性
+      :sum, :memo,
+      :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
       shopping_list_items: [ :name, :category ]
     )
   end

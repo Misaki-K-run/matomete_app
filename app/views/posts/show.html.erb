@@ -1,17 +1,34 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto">
+  <!-- ユーザー情報 -->
+<div class="flex flex-col items-center w-full p-4">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow flex">
+    <div class="avatar">
+      <div class="w-24 rounded-full mr-4">
+        <%= image_tag @user.avatar_url %>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <h3>アカウント名：<%= @user.name %></h3>
+      <h3>予算：<%= @user.budget %>円</h3>
+      <h3>人数：<%= @user.people %>人</h3>
+      <h3><%= @user.introduction %></h3>
+    </div>
+  </div>
+</div>
+    <!-- 編集、削除ボタン -->
     <% if current_user.own?(@post) %>
-                <div class='flex justify-end'>
+                <div class='flex justify-end space-x-2'>
                   <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}" do %>
-                    <%= image_tag 'pencil-square.svg', alt: "pencil", class: "h-6 w-6 mb-1" %>
+                    <%= image_tag 'pencil-square.svg', alt: "pencil", class: "h-6 w-6 mb-2" %>
                   <% end %>
                   <%= link_to post_path(@post), id: "button-delete-#{@post.id}", data: { turbo_method: :delete, turbo_confirm: "削除していいですか"} do %>
-                    <%= image_tag 'trash.svg', alt: "trash", class: "h-6 w-6 mb-1" %>
+                    <%= image_tag 'trash.svg', alt: "trash", class: "h-6 w-6 mb-2" %>
                   <% end %>
                 </div>
     <% end %>
 
-    <h3 class="text-2xl font-bold text-center mb-6">献立内容</h3>
+    <h3 class="text-2xl font-bold text-center mb-6">1週間の献立</h3>
 
     <!-- 一週間のメニュー -->
     <div class="mb-4">
