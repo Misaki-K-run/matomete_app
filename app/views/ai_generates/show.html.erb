@@ -2,7 +2,7 @@
   <h2 class="text-xl font-bold my-4">一週間の献立</h2>
   <ul class="list-disc pl-6 mb-6">
     <% @ai_generate.menu_response.each do |day, meals| %>
-      <li class="mb-3"><strong><%= day %>:</strong>
+      <li class="mb-3"><strong><%= day %></strong>
         <ul class="list-disc pl-6 mt-1">
           <% meals.each do |meal| %>
             <li><%= meal %></li>
@@ -15,7 +15,7 @@
   <h2 class="text-xl font-bold my-4">買い物リスト</h2>
   <ul class="list-disc mb-6 pl-5">
   <% @ai_generate.shopping_list_response.each do |item| %>
-    <li><%= item["item"] %>: <%= item["quantity"] %> 
+    <li><%= item["item"] %>: <%= item["quantity"] %>
       <% if item["estimated_price"].present? %>
         (約<%= item["estimated_price"] %>円)
       <% end %>

@@ -19,15 +19,15 @@ class AiGeneratesController < ApplicationController
     @ai_generate.assign_attributes(ai_results)
 
     if @ai_generate.save
-      redirect_to ai_generate_path(@ai_generate)
+      redirect_to ai_generate_path(@ai_generate), notice: "献立を作成しました！"
     else
+      flash.now[:alert] = "献立を作成できませんでした。"
       render :new, status: :unprocessable_entity
     end
   end
 
   def show
     @ai_generate = AiGenerate.find(params[:id])
-    # 必要な情報をビューに渡す
   end
 
   private

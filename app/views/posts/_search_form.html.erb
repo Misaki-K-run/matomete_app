@@ -1,5 +1,5 @@
 <%= search_form_for @q, url: url, method: :get, html: { class: "flex gap-4" } do |f| %>
-  <!-- 予算（budget）検索 -->
+  <!-- 予算検索 -->
   <label class="flex items-center gap-2">
 
     <%= f.select :user_budget_lteq, [
@@ -16,7 +16,7 @@
 
   </label>
 
-  <!-- 人数（people）検索 -->
+  <!-- 人数検索 -->
   <label class="flex items-center gap-2">
     <%= f.number_field :user_people_eq, placeholder: "人数", class: "input input-bordered w-20" %>
   </label>

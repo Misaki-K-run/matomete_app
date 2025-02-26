@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    models:
+      ai_generate: "献立生成"
+    attributes:
+      ai_generate:
+        budget_request: "一週間の予算"
+        people_request: "人数"
+        menu_response: "献立"
+        shopping_list_response: "買い物リスト"
+        sum_response: "合計金額"
+        special_request: "リクエスト"
+    errors:
+      messages:
+        blank: "を入力してください"
