@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   patch "update" => "users#update"
 
   # 投稿
-  resources :posts, only: %i[index new create show edit update destroy]do
+  resources :posts, only: %i[index new create show edit update destroy] do
     collection do
       get :bookmarks
     end

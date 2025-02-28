@@ -8,5 +8,4 @@ class BookmarksController < ApplicationController
     @post = current_user.bookmarks.find(params[:id]).post
     current_user.unbookmark(@post)
   end
-
 end
