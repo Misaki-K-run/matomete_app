@@ -14,10 +14,17 @@ Rails.application.routes.draw do
   patch "update" => "users#update"
 
   # 投稿
-  resources :posts, only: %i[index new create show edit update destroy]
+  resources :posts, only: %i[index new create show edit update destroy] do
+    collection do
+      get :bookmarks
+    end
+  end
 
   # AI自動生成
   resources :ai_generates, only: [ :new, :create, :show ]
+
+  # bookmark
+  resources :bookmarks, only: %i[create destroy]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

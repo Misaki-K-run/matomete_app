@@ -13,9 +13,24 @@ class User < ApplicationRecord
   # 関連付け
   has_many :posts, dependent: :destroy
   has_many :ai_generates, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_posts, through: :bookmarks, source: :post
+
 
   def own?(post)
     id == post.user_id
+  end
+
+  def bookmark(post)
+    bookmark_posts << post
+  end
+
+  def unbookmark(post)
+    bookmark_posts.destroy(post)
+  end
+
+  def bookmark?(post)
+    bookmark_posts.include?(post)
   end
 
   # ransack
