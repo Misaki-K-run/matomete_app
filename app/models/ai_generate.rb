@@ -7,4 +7,5 @@ class AiGenerate < ApplicationRecord
   validates :special_request, length: { maximum: 100 }
 
   belongs_to :user
+  has_one :favorite, dependent: :destroy
 end

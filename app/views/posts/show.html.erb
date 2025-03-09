@@ -27,8 +27,8 @@
                   <% end %>
                 </div>
     <% end %>
-    <!-- お気に入り登録 -->
 
+  <!-- お気に入り登録 -->
   <% if current_user.bookmark?(@post) %>
     <%= render 'unbookmark', post: @post %>
   <% else %>

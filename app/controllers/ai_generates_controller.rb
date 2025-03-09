@@ -30,6 +30,10 @@ class AiGeneratesController < ApplicationController
     @ai_generate = AiGenerate.find(params[:id])
   end
 
+  def favorites
+    @favorite_ai_generates = current_user.favorite_ai_generates.includes(:user).order(created_at: :desc)
+  end
+
   private
 
   def ai_generate_params
