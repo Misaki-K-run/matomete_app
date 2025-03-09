@@ -33,6 +33,11 @@ Rails.application.routes.draw do
   # favorite
   resources :favorites, only: [ :create, :destroy ]
 
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check
 
