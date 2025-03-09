@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "favorite-button-for-ai_generate-#{@ai_generate.id}" do %>
+  <%= render 'ai_generates/unfavorite', ai_generate: @ai_generate %>
+<% end %>

@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_025707) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_083014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ai_generates", force: :cascade do |t|
     t.integer "budget_request", null: false
-    t.integer "people_request", null: false
+    t.string "people_request", null: false
     t.text "allergies"
     t.text "favorite_ingredients"
     t.jsonb "menu_response", default: {}, null: false
@@ -37,6 +37,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_025707) do
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
     t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "ai_generate_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ai_generate_id"], name: "index_favorites_on_ai_generate_id"
+    t.index ["user_id", "ai_generate_id"], name: "index_favorites_on_user_id_and_ai_generate_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -91,6 +101,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_025707) do
   add_foreign_key "ai_generates", "users"
   add_foreign_key "bookmarks", "posts"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "favorites", "ai_generates"
+  add_foreign_key "favorites", "users"
   add_foreign_key "menus", "posts"
   add_foreign_key "posts", "users"
   add_foreign_key "shopping_lists", "posts"

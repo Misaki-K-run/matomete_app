@@ -22,6 +22,13 @@
     </li>
   <% end %>
   </ul>
-
+  <!-- お気に入り登録 -->
+  <% if current_user.favorite?(@ai_generate) %>
+    <%= render 'unfavorite',  ai_generate: @ai_generate %>
+  <% else %>
+    <%= render 'favorite', ai_generate: @ai_generate %>
+  <% end %>
   <h2 class="text-xl font-bold mb-10">予想される合計金額: <%= @ai_generate.sum_response %> 円</h2>
+
+
 </div>

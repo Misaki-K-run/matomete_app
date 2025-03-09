@@ -1,0 +1,30 @@
+  <h2 class="text-2xl font-bold mb-6 text-center flex items-center justify-center">
+    お気に入りの献立表
+  </h2>
+<% if @favorite_ai_generates.present? %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <% @favorite_ai_generates.each do |favorite| %>
+    <%= link_to ai_generate_path(favorite), class: "block" do %>
+      <div class="border p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition">
+        <p class="text-sm text-gray-600">予算: <%= favorite.budget_request %> 円</p>
+        <p class="text-sm text-gray-600">人数: <%= favorite.people_request %> 人</p>
+
+        <p class="mt-2 text-sm text-gray-700 line-clamp-3">
+          <%= truncate(favorite.special_request, length: 50, separator: '...') %>
+        </p>
+
+        <div class="mt-4 flex justify-between items-center">
+          <span class="text-xs text-gray-500"><%= favorite.created_at.strftime('%Y/%m/%d') %></span>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+<% else %>
+    <div class="bg-white shadow-md rounded-lg p-6 text-center">
+      <p class="text-gray-500">
+        お気に入りの献立表がありません。
+      </p>
+    </div>
+<% end %>
+

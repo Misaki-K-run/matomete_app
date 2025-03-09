@@ -5,6 +5,12 @@
     一週間の献立と買い物リスト 自動生成
     </h2>
 
+    <!-- お気に入りリンク -->
+    <%= link_to favorites_ai_generates_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
+      <%= image_tag 'book.svg', alt: "book", class: "h-6 w-6 mb-1" %>
+    <% end %>
+
+    <!-- リクエストフォーム -->
     <%= form_with model: @ai_generate, local: true do |f| %>
 
       <% if @ai_generate.errors.any? %>

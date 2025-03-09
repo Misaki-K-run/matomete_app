@@ -21,10 +21,17 @@ Rails.application.routes.draw do
   end
 
   # AI自動生成
-  resources :ai_generates, only: [ :new, :create, :show ]
+  resources :ai_generates, only: [ :new, :create, :show ] do
+    collection do
+      get :favorites
+    end
+  end
 
   # bookmark
   resources :bookmarks, only: %i[create destroy]
+
+  # favorite
+  resources :favorites, only: [ :create, :destroy ]
 
   # Health check ルート（アップタイムモニタリング用）
   get "up" => "rails/health#show", as: :rails_health_check

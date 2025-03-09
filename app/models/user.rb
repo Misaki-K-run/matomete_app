@@ -15,12 +15,15 @@ class User < ApplicationRecord
   has_many :ai_generates, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_posts, through: :bookmarks, source: :post
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_ai_generates, through: :favorites, source: :ai_generate
 
 
   def own?(post)
     id == post.user_id
   end
 
+  # ブックマーク
   def bookmark(post)
     bookmark_posts << post
   end
@@ -31,6 +34,19 @@ class User < ApplicationRecord
 
   def bookmark?(post)
     bookmark_posts.include?(post)
+  end
+
+  # お気に入り登録
+  def favorite(ai_generate)
+    favorite_ai_generates << ai_generate
+  end
+
+  def unfavorite(ai_generate)
+    favorite_ai_generates.destroy(ai_generate)
+  end
+
+  def favorite?(ai_generate)
+    favorite_ai_generates.include?(ai_generate)
   end
 
   # ransack
