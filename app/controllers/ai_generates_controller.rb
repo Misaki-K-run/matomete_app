@@ -31,7 +31,7 @@ class AiGeneratesController < ApplicationController
   end
 
   def favorites
-    @favorite_ai_generates = current_user.favorite_ai_generates.includes(:user).order(created_at: :desc)
+    @favorite_ai_generates = current_user.favorite_ai_generates.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   private

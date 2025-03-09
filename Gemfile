@@ -14,6 +14,9 @@ gem "carrierwave", "2.2.2"
 # 検索機能
 gem "ransack"
 
+# ページネーション
+gem "kaminari"
+
 # open_ai
 gem "ruby-openai"
 
