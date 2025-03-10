@@ -31,7 +31,7 @@
       <!-- Sidebar content here -->
       <li><%= link_to "利用規約", terms_of_service_path %></li>
       <li><%= link_to "プライバシーポリシー", privacy_policy_path %></li>
-      <li><a>お問い合わせ</a></li>
+      <li><%= link_to "お問い合せ", "https://forms.gle/U5v9nA2egfefjLhD9" %></li>
       <li></li>
       <% if user_signed_in? %>
       <li> <%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
