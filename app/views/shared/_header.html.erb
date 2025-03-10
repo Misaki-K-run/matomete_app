@@ -29,8 +29,8 @@
     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
       <!-- Sidebar content here -->
-      <li><a>利用規約</a></li>
-      <li><a>プライバシーポリシー</a></li>
+      <li><%= link_to "利用規約", terms_of_service_path %></li>
+      <li><%= link_to "プライバシーポリシー", privacy_policy_path %></li>
       <li><a>お問い合わせ</a></li>
       <li></li>
       <% if user_signed_in? %>
