@@ -20,7 +20,10 @@
   <body>
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
+
+  <main class="flex-grow mb-32">
     <%= yield %>
     <%= render 'shared/footer' %>
+  </main>
   </body>
 </html>

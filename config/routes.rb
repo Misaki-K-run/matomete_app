@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   # favorite
   resources :favorites, only: [ :create, :destroy ]
 
+  # 利用規約・プライバシーポリシー
+  get "privacy_policy" => "static_pages#privacy_policy", as: :privacy_policy
+  get "terms_of_service" => "static_pages#terms_of_service", as: :terms_of_service
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
