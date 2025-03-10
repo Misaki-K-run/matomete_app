@@ -18,7 +18,7 @@ gem "ransack"
 gem "kaminari"
 
 # レターオープナー
-gem 'letter_opener_web'
+gem "letter_opener_web"
 
 # open_ai
 gem "ruby-openai"
