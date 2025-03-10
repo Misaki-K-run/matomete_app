@@ -10,12 +10,12 @@
     <div class="space-y-4">
       <div class="field">
         <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.email_field :email, autofocus: true, class: "input input-bordered w-full max-w-xs", placeholder: "Email", autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, class: "input input-bordered w-full", placeholder: "Email", autocomplete: "email" %>
       </div>
 
       <div class="field">
         <%= f.label :password,"パスワード", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.password_field :password, class: "input input-bordered w-full max-w-xs", placeholder: "パスワード", autocomplete: "current-password" %>
+        <%= f.password_field :password, class: "input input-bordered w-full", placeholder: "パスワード", autocomplete: "current-password" %>
       </div>
 
         <% if devise_mapping.rememberable? %>
@@ -31,6 +31,9 @@
     <% end %>
       <div class="text-center">
         <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline btn-accent w-full" %>
+      </div>
+      <div class="text">
+      <%= link_to "パスワードをお忘れの方はこちら", new_user_password_path, class: "text-blue-500 hover:text-blue-700 underline" %>
       </div>
     </div>
   </div>
