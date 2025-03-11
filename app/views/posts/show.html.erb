@@ -16,17 +16,68 @@
     </div>
   </div>
 </div>
-    <!-- 編集、削除ボタン -->
-    <% if current_user.own?(@post) %>
-                <div class='flex justify-end space-x-2'>
-                  <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}" do %>
-                    <%= image_tag 'pencil-square.svg', alt: "pencil", class: "h-6 w-6 mb-2" %>
-                  <% end %>
-                  <%= link_to post_path(@post), id: "button-delete-#{@post.id}", data: { turbo_method: :delete, turbo_confirm: "削除していいですか"} do %>
-                    <%= image_tag 'trash.svg', alt: "trash", class: "h-6 w-6 mb-2" %>
-                  <% end %>
-                </div>
-    <% end %>
+
+  <h3 class="text-xl font-mono text-center mb-6">1週間の献立</h3>
+
+<!-- 一週間のメニュー -->
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">月曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.monday if @post.menu %></p>
+</div>
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">火曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.tuesday if @post.menu %></p>
+</div>
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">水曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.wednesday if @post.menu %></p>
+</div>
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">木曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.thursday if @post.menu %></p>
+</div>
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">金曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.friday if @post.menu %></p>
+</div>
+<div class="mb-4 border-b pb-2">
+  <h4 class="text-lg font-mono">土曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.saturday if @post.menu %></p>
+</div>
+<div class="mb-4">
+  <h4 class="text-lg font-mono">日曜日</h4>
+  <p class="text-gray-700"><%= @post.menu.sunday if @post.menu %></p>
+</div>
+
+
+    <!-- 買い物リスト -->
+    <h3 class="text-xl font-mono text-center mb-6">買い物リスト</h3>
+    <div class="mb-4">
+      <h4 class="text-lg font-mono text-white bg-red-300 p-1">肉、魚類</h4>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'meat_fish').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
+    </div>
+    <div class="mb-4">
+      <h4 class="text-lg font-mono text-white bg-lime-400 p-1">野菜</h4>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'vegetable').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
+    </div>
+    <div class="mb-4">
+      <h4 class="text-lg font-mono text-white bg-yellow-400 p-1">その他</h4>
+      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'other').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
+    </div>
+
+    <!-- メモ -->
+    <div class="mb-4">
+      <h4 class="text-lg font-mono">メモ</h4>
+      <p class="text-gray-700"><%= @post.memo %></p>
+    </div>
+
+    <!-- 合計 -->
+    <div class="mb-4">
+      <h4 class="text-lg font-mono">合計</h4>
+      <p class="text-gray-700"><%= @post.sum %>円</p>
+    </div>
+    <!-- ボタン-->
+<div class="flex justify-between items-center">
 
   <!-- お気に入り登録 -->
   <% if current_user.bookmark?(@post) %>
@@ -35,64 +86,18 @@
     <%= render 'bookmark', post: @post %>
   <% end %>
 
+  <!-- 編集、削除ボタン -->
+  <% if current_user.own?(@post) %>
+    <div class='flex justify-end space-x-2'>
+      <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}" do %>
+        <%= image_tag 'pencil-square.svg', alt: "pencil", class: "h-6 w-6 mb-2" %>
+      <% end %>
+      <%= link_to post_path(@post), id: "button-delete-#{@post.id}", data: { turbo_method: :delete, turbo_confirm: "削除していいですか"} do %>
+        <%= image_tag 'trash.svg', alt: "trash", class: "h-6 w-6 mb-2" %>
+      <% end %>
+    </div>
+  <% end %>
 
-    <h3 class="text-2xl font-bold text-center mb-6">1週間の献立</h3>
-
-    <!-- 一週間のメニュー -->
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">月曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.monday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">火曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.tuesday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">水曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.wednesday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">木曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.thursday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">金曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.friday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">土曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.saturday if @post.menu %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">日曜日</h4>
-      <p class="text-gray-700"><%= @post.menu.sunday if @post.menu %></p>
-    </div>
-
-    <!-- 買い物リスト -->
-    <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">肉、魚類</h4>
-      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'meat_fish').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">野菜</h4>
-      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'vegetable').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
-    </div>
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">その他</h4>
-      <p class="text-gray-700"><%= @post.shopping_lists.where(category: 'other').map(&:name).join(', ') if @post.shopping_lists.any? %></p>
-    </div>
-
-    <!-- メモ -->
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">メモ</h4>
-      <p class="text-gray-700"><%= @post.memo %></p>
-    </div>
-
-    <!-- 合計 -->
-    <div class="mb-4">
-      <h4 class="text-lg font-semibold">合計</h4>
-      <p class="text-gray-700"><%= @post.sum %></p>
-    </div>
+</div>
   </div>
 </div>

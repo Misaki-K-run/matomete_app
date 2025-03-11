@@ -1,24 +1,30 @@
-<div class="navbar bg-base-100 shadow-lg fixed bottom-0 left-0 right-0 z-10">
+<div class="navbar bg-base-100 shadow-lg fixed bottom-0 left-0 right-0 z-10 border-t border-gray-200 flex justify-between items-center px-6">
 
   <!-- ホーム -->
-  <%= link_to posts_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
-    <%= image_tag 'home.svg', alt: "Home", class: "h-6 w-6 mb-1" %>
+  <%= link_to posts_path, class: "flex flex-col items-center py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 sm:flex-row sm:items-center sm:text-gray-700" do %>
+    <%= image_tag 'home.svg', alt: "Home", class: "h-6 w-6 mb-1 sm:mb-0 sm:mr-2" %>
+    <span class="hidden sm:inline text-sm">ホーム</span>
   <% end %>
 
   <!-- 投稿 -->
-  <%= link_to new_post_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
-    <%= image_tag 'plus-circle.svg', alt: "Post", class: "h-6 w-6 mb-1" %>
+  <%= link_to new_post_path, class: "flex flex-col items-center py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 sm:flex-row sm:items-center sm:text-gray-700" do %>
+    <%= image_tag 'plus-circle.svg', alt: "Post", class: "h-6 w-6 mb-1 sm:mb-0 sm:mr-2" %>
+    <span class="hidden sm:inline text-sm">投稿</span>
   <% end %>
 
   <!-- AI -->
-  <%= link_to new_ai_generate_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
-    <%= image_tag 'light.svg', alt: "AI", class: "h-6 w-6 mb-1" %>
+  <%= link_to new_ai_generate_path, class: "flex flex-col items-center py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 sm:flex-row sm:items-center sm:text-gray-700" do %>
+    <%= image_tag 'light.svg', alt: "AI", class: "h-6 w-6 mb-1 sm:mb-0 sm:mr-2" %>
+    <span class="hidden sm:inline text-sm">AI</span>
   <% end %>
 
   <!-- マイページ -->
-  <%= link_to mypage_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
-    <%= image_tag 'user.svg', alt: "My Page", class: "h-6 w-6 mb-1" %>
+  <%= link_to mypage_path, class: "flex flex-col items-center py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 sm:flex-row sm:items-center sm:text-gray-700" do %>
+    <%= image_tag 'user.svg', alt: "My Page", class: "h-6 w-6 mb-1 sm:mb-0 sm:mr-2" %>
+    <span class="hidden sm:inline text-sm">マイページ</span>
   <% end %>
+
 </div>
+
 
 

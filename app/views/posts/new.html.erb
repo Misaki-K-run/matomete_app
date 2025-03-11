@@ -1,45 +1,45 @@
 <div class="container mx-auto p-4">
   <div class="max-w-lg mx-auto ">
-      <h3 class="text-2xl font-bold text-center mb-6">一週間の献立表</h3>
+      <h3 class="text-xl font-mono text-center mb-6">一週間の献立表</h3>
       <%= form_with model: @post_form, url: posts_path,data: { turbo: false },class: "new_post" do |f| %>
 
     <!--一週間のメニュー-->
-      <%= f.label :monday, "月曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :monday, "月曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :monday, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :tuesday, "火曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :tuesday, "火曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :tuesday,class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :wednesday, "水曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :wednesday, "水曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :wednesday, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :thursday, "木曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :thursday, "木曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :thursday, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :friday, "金曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :friday, "金曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :friday, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :saturday, "土曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :saturday, "土曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :saturday, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
-      <%= f.label :sunday, "日曜日", class: "block text-lg font-medium mb-2" %>
+      <%= f.label :sunday, "日曜日", class: "block text-lg font-medium font-mono mb-2" %>
       <%= f.text_area :sunday,class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
 
       <div class="mb-4">
-        <%= f.label :memo, "メモ", class: "block text-lg font-medium mb-2" %>
+        <%= f.label :memo, "メモ", class: "block text-lg font-medium font-mono mb-2" %>
         <%= f.text_field :memo, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "メモを入力" %>
       </div>
       <div class="mb-4">
-        <%= f.label :sum, "合計", class: "block text-lg font-medium mb-2" %>
+        <%= f.label :sum, "合計", class: "block text-lg font-medium font-mono mb-2" %>
         <%= f.number_field :sum, class: "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "数字を入力" %>
       </div>
 
   <!--買い物リスト入力画面-->
-  <h3 class="text-2xl font-bold text-center mb-6">買い物リスト</h3>
+  <h3 class="text-xl font-mono text-center mb-6">買い物リスト</h3>
   <div id="shopping-list-container">
     <% ['meat_fish', 'vegetable', 'other'].each do |category| %>
       <div class="mb-4" id="<%= category %>-fields">
-        <%= f.label category, category == 'meat_fish' ? '肉・魚' : category == 'vegetable' ? '野菜' : 'その他', class: "block text-lg font-medium mb-2", for: "post_form_#{category}" %>
+        <%= f.label category, category == 'meat_fish' ? '肉・魚類' : category == 'vegetable' ? '野菜' : 'その他', class: "block text-lg font-medium font-mono mb-2", for: "post_form_#{category}" %>
         <input type="text" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
         <button type="button" class="add-item-btn bg-stone-300 text-white p-2 rounded mt-2 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">

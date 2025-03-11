@@ -9,21 +9,23 @@
 
     <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
   </head>
 
   <body>
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
 
-  <main class="flex-grow mb-32">
-    <%= yield %>
-    <%= render 'shared/footer' %>
-  </main>
+    <main class="flex-grow mb-32">
+      <%= yield %>
+      <%= render 'shared/footer' %>
+    </main>
   </body>
 </html>

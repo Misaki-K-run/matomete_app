@@ -1,4 +1,4 @@
-<div class="container mx-auto pb-10">
+<div class="container mx-auto p-4 pb-10">
   <h2 class="text-xl font-bold my-4">一週間の献立</h2>
   <ul class="list-disc pl-6 mb-6">
     <% @ai_generate.menu_response.each do |day, meals| %>
@@ -22,13 +22,13 @@
     </li>
   <% end %>
   </ul>
+
+  <h2 class="text-xl font-bold mb-10">予想される合計金額: <%= @ai_generate.sum_response %> 円</h2>
+
   <!-- お気に入り登録 -->
   <% if current_user.favorite?(@ai_generate) %>
     <%= render 'unfavorite',  ai_generate: @ai_generate %>
   <% else %>
     <%= render 'favorite', ai_generate: @ai_generate %>
   <% end %>
-  <h2 class="text-xl font-bold mb-10">予想される合計金額: <%= @ai_generate.sum_response %> 円</h2>
-
-
 </div>

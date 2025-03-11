@@ -1,12 +1,22 @@
 
-  <!-- 投稿一覧 -->
-  <div class="container w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between">
+
+  <div class="w-full">
+    <h2 class="text-xl font-mono text-center my-6">お気に入り一覧</h2>
+
+    <!-- 区切り線 -->
+    <hr class="border-gray-100 mb-6">
+
+    <!-- 投稿一覧 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
     <% if @bookmark_posts.present? %>
       <%= render partial: 'posts/post_card', collection: @bookmark_posts, as: :post %>
     <% else %>
-      <p class="text-gray-700 text-center">該当する投稿が見つかりませんでした。</p>
+      <p class="text-gray-600 text-center p-4">気に入った投稿をお気に入りしてみよう。</p>
     <% end %>
     </div>
   </div>
-  <%= paginate @bookmark_posts %>
+  <!-- ページネーション -->
+  <div class="mt-6">
+    <%= paginate @bookmark_posts %>
+  </div>
