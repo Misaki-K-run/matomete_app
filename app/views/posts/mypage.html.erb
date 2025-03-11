@@ -1,5 +1,5 @@
 <div class="text-center m-8">
-  <h1 class="text-xl font-bold">マイページ</h1>
+  <h1 class="text-xl font-mono">マイページ</h1>
 </div>
 
 <!-- マイページ情報 -->
@@ -20,15 +20,24 @@
 </div>
 
 <!-- リンク -->
-<div class="w-full flex items-center my-5">
+<div class="w-full flex items-center my-5 border-b border-gray-100">
   <%= link_to bookmarks_posts_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
     <%= image_tag 'heart.svg', alt: "heart", class: "h-6 w-6 mb-1" %>
+    <span class="text-xs text-gray-500">お気に入り</span>
+  <% end %>
+
+  <div class="border-l border-gray-300 h-8 mx-2"></div> <!-- 縦線 -->
+
+  <%= link_to favorites_ai_generates_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
+    <%= image_tag 'book.svg', alt: "book", class: "h-6 w-6 mb-1" %>
+    <span class="text-xs text-gray-500">AI ブックマーク</span>
   <% end %>
 
   <div class="border-l border-gray-300 h-8 mx-2"></div> <!-- 縦線 -->
 
   <%= link_to edit_path, class: "flex flex-col items-center flex-1 py-2 text-gray-500 hover:text-gray-700 transition-colors duration-200" do %>
     <%= image_tag 'pencil-square.svg', alt: "pencil", class: "h-6 w-6 mb-1" %>
+    <span class="text-xs text-gray-500">マイページ編集</span>
   <% end %>
 </div>
 

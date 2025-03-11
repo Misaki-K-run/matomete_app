@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center justify-center min-h-screen w-full">
   <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
     <div class="text-center mb-8">
-      <h1 class="text-xl font-bold">マイページ 編集</h1>
+      <h1 class="text-xl font-mono">マイページ 編集</h1>
     </div>
 <%= form_with model: @user, url: update_path, method: :patch , local: true, html: { multipart: true } do |f| %>
     <% if @user.errors.any? %>

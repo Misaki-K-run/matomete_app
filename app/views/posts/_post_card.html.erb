@@ -1,70 +1,107 @@
 <a href="<%= post_path(post) %>" class="block w-full">
-  <div class="card bg-base-100 w-full h-128 shadow-xl hover:shadow-2xl transition">
+  <div class="card bg-base-100 h-128 shadow-xl hover:shadow-2xl transition max-w-xs mx-auto">
     <div class="card-body">
-      <div class="overflow-x-auto">
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>一週間の献立表</th>
-            </tr>
-          </thead>
-          <tbody>
+      <!-- テーブル -->
+    <div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>一週間の献立表</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr>
         <th>月</th>
-        <td><%= post.menu.monday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.monday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>火</th>
-        <td><%=post.menu.tuesday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.tuesday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>水</th>
-        <td><%=post.menu.wednesday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.wednesday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>木</th>
-        <td><%=post.menu.thursday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.thursday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>金</th>
-        <td><%=post.menu.friday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.friday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>土</th>
-        <td><%=post.menu.saturday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.saturday if post.menu %>
+          </div>
+        </td>
       </tr>
       <tr>
         <th>日</th>
-        <td><%=post.menu.sunday if post.menu %></td>
+        <td class="truncate" style="max-width: 200px;">
+          <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+            <%= post.menu.sunday if post.menu %>
+          </div>
+        </td>
       </tr>
-          </tbody>
-        </table>
-      </div>
-    <!-- 一週間の合計 -->
-    <% if post.sum.present? %>
-        <div class="flex justify-end">
-          <h3 class="card-title">合計: <%= post.sum %>円</h3>
-        </div>
-    <% end %>
-    <!-- ユーザー情報 -->
-    <div class="avatar">
-      <div class="w-24 rounded-full">
-      <%= image_tag post.user&.avatar.present? ? post.user.avatar.url : 'user-icon.png' %>
-    </div>
-
-    <div class="card-actions flex justify-end">
-      <div class="flex flex-col items-end space-y-2">
-        <% if post.user.budget.present? %>
-          <div class="badge badge-outline">予算: <%= post.user.budget %>円</div>
-        <% end %>
-
-        <% if post.user.people.present? %>
-          <div class="badge badge-outline">人数: <%= post.user.people %>人</div>
-        <% end %>
-      </div>
-    </div>
-      </div>
-    </div>
+    </tbody>
+  </table>
   </div>
+
+
+
+
+      <!-- ユーザー情報 -->
+      <div class="flex items-center space-x-4 mt-4  justify-between">
+        <div class="avatar">
+          <div class="w-20 h-20 rounded-full overflow-hidden">
+            <%= image_tag post.user&.avatar.present? ? post.user.avatar.url : 'user-icon.png', class: "w-full h-full object-cover" %>
+          </div>
+        </div>
+
+        <!-- 予算・人数情報 -->
+        <div class="card-actions flex flex-col items-end space-y-1 ">
+
+        <!-- 一週間の合計 -->
+        <% if post.sum.present? %>
+        <div class="flex justify-end">
+          <h3 class="card-title text-sm">合計: <%= post.sum %>円</h3>
+        </div>
+        <% end %>
+
+          <% if post.user.budget.present? %>
+            <div class="badge badge-outline badge-neutral">予算: <%= post.user.budget %>円</div>
+          <% end %>
+
+          <% if post.user.people.present? %>
+            <div class="badge badge-outline badge-neutral">人数: <%= post.user.people %>人</div>
+          <% end %>
+        </div>
+      </div>
+
+    </div> <!-- card-body -->
+  </div> <!-- card -->
 </a>

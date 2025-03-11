@@ -4,12 +4,12 @@
   </div>
 
   <!-- 投稿一覧 -->
-  <div class="container w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between">
+  <div class="w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% if @posts.present? %>
       <%= render partial: 'posts/post_card', collection: @posts, as: :post %>
     <% else %>
-      <p class="text-gray-700 text-center">該当する投稿が見つかりませんでした。</p>
+      <p class="text-gray-700 text-center">投稿が見つかりませんでした。</p>
     <% end %>
     </div>
   </div>
