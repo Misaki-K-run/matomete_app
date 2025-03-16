@@ -9,10 +9,7 @@
 
 <!-- 新規登録フォーム -->
     <div class="space-y-4">
-      <div>
-<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-google" %>
 
-</div>
       <div class="field">
         <%= f.label :name,"ユーザー名", class: "block text-sm font-medium text-gray-700" %>
         <%= f.text_field :name, autofocus: true, class: "input input-bordered w-full", placeholder: "ユーザー名" %>
@@ -39,6 +36,12 @@
       <div class="text-center">
         <%= f.submit "新規登録", class: "btn w-full" %>
       </div>
+      <a href="/users/auth/google_oauth2" 
+   class="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-lg shadow-sm px-4 py-2 hover:bg-gray-100">
+  <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="w-5 h-5">
+  <span>Googleでアカウント作成</span>
+</a>
+
     </div>
     <% end %>
 

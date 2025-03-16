@@ -20,6 +20,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
+    flash[:alert] = "Googleアカウントが登録されていません。新規登録してください。"
     redirect_to root_path
   end
 end
