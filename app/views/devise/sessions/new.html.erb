@@ -8,6 +8,8 @@
 
 <!-- ログインフォーム -->
     <div class="space-y-4">
+<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+
       <div class="field">
         <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
         <%= f.email_field :email, autofocus: true, class: "input input-bordered w-full", placeholder: "Email", autocomplete: "email" %>

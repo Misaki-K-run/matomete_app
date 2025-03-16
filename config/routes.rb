@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   # ログイン・新規登録・ログアウト・パスワードリセット
   devise_for :users, controllers: {
     sessions: "users/sessions",
-    registrations: "users/registrations"
+    registrations: "users/registrations",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
   # マイページ
