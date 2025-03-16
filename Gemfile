@@ -2,6 +2,9 @@ source "https://rubygems.org"
 # ログイン認証
 gem "devise"
 
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 # devise 日本語化
 gem "devise-i18n"
 gem "devise-i18n-views"

@@ -2,11 +2,13 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :encrypted_password, presence: true, length: { minimum: 7 }
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true
+  validates :uid, presence: true, uniqueness: { scope: :provider }, if: -> { uid.present? }
 
   mount_uploader :avatar, AvatarUploader
 
@@ -52,5 +54,17 @@ class User < ApplicationRecord
   # ransack
   def self.ransackable_attributes(auth_object = nil)
     [ "people", "budget" ]
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end
+
+  def self.create_unique_string
+    SecureRandom.uuid
   end
 end
