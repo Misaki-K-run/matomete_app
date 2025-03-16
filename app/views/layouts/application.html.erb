@@ -4,6 +4,11 @@
     <title><%= content_for(:title) || "Myapp" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta property="og:site_name" content="matomete">
+    <meta property="og:description" content="一週間分の献立表と買い物リストをまとめて作成">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matomete-app.onrender.com">
+    <meta property="og:image" content="<%= request.base_url %>/ogp.png">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
