@@ -27,8 +27,11 @@
 
   <!-- お気に入り登録 -->
   <% if current_user.favorite?(@ai_generate) %>
-    <%= render 'unfavorite',  ai_generate: @ai_generate %>
+    <%= render 'unfavorite', ai_generate: @ai_generate %>
   <% else %>
+  <div class="flex items-center space-x-2">
     <%= render 'favorite', ai_generate: @ai_generate %>
+    <span class="text-sm text-gray-700">保存する</span>
+  </div>
   <% end %>
 </div>
