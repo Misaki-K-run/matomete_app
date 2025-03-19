@@ -1,4 +1,6 @@
 class AiGeneratesController < ApplicationController
+  before_action :check_ai_usage_limit, only: [ :create ]
+
   def new
     @ai_generate = AiGenerate.new
   end
@@ -38,5 +40,17 @@ class AiGeneratesController < ApplicationController
 
   def ai_generate_params
     params.require(:ai_generate).permit(:budget_request, :people_request, :allergies, :favorite_ingredients, :special_request)
+  end
+
+  def check_ai_usage_limit
+    if current_user.ai_usage_date == Date.today && current_user.ai_usage_count >= 3
+      flash[:alert] = "今日はすでに3回AIを使用しました。明日また試してください。"
+      redirect_to ai_generates_path
+    else
+      if current_user.ai_usage_date != Date.today
+        current_user.update(ai_usage_count: 0, ai_usage_date: Date.today)
+      end
+      current_user.increment!(:ai_usage_count)
+    end
   end
 end

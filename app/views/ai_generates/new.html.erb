@@ -2,11 +2,16 @@
   <div class="max-w-lg mx-auto">
 
     <h2 class="text-xl text-gray-700 font-mono text-center flex items-center justify-center mb-6">
-    AI 一週間の献立と買い物リスト
+      今週の献立＆買い物リスト作成
     </h2>
 
+    <p class="text-center text-gray-600 mb-6 text-xs">
+      あなたのための献立アイデアと<br>
+      必要な食材の買い物リストを簡単に作成できます！
+    </p>
+
     <!-- リクエストフォーム -->
-    <%= form_with model: @ai_generate, local: true do |f| %>
+    <%= form_with model: @ai_generate, local: true, id: "question-form"  do |f| %>
 
       <% if @ai_generate.errors.any? %>
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
@@ -32,12 +37,12 @@
 
       <div class="field">
         <%= f.label :allergies,"アレルギー・嫌いな食材（複数入力可）", class: "block text-sm font-mono font-medium text-gray-700" %>
-        <%= f.text_field  :allergies, class: "input input-bordered w-full", placeholder: "献立に入れて欲しくない食材をコンマ区切りで入力" %>
+        <%= f.text_field  :allergies, class: "input input-bordered w-full", placeholder: "献立に入れて欲しくない食材を入力" %>
       </div>
 
       <div class="field">
         <%= f.label :favorite_ingredients,"好みの食材（複数入力可）", class: "block text-sm font-medium font-mono text-gray-700" %>
-        <%= f.text_field  :favorite_ingredients, class: "input input-bordered w-full", placeholder: "献立に入れて欲しい食材をコンマ区切りで入力" %>
+        <%= f.text_field  :favorite_ingredients, class: "input input-bordered w-full", placeholder: "献立に入れて欲しい食材を入力" %>
       </div>
 
       <div class="field">
@@ -46,9 +51,13 @@
       </div>
 
       <div class="text-center">
-        <%= f.submit "献立を作成", class: " p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        <%= f.submit "AI 自動作成", class: " p-3 bg-emerald-500 text-white font-semibold rounded-md hover:bg-lime-300 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
       </div>
       </div>
+      <p class="text-center text-gray-600 m-6 text-xs">
+        ※AIを使用できる回数は1日最大3回までです。<br>
+        制限を超えた場合は、次の日にリセットされます。
+      </p>
 
     <% end %>
 

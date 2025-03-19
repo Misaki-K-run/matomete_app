@@ -30,6 +30,31 @@
     <%= render 'shared/flash_message' %>
 
     <main class="flex-grow mb-32">
+
+    <!-- ローディングインジケータ -->
+    <div id="loading-indicator"
+         class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50"
+         style="display: none;">
+      <div class="loader"></div>
+    </div>
+
+    <!-- スピナー用CSS -->
+    <style>
+      .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1.5s linear infinite;
+      }
+
+      @keyframes spin {
+        0%   { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+
       <%= yield %>
       <%= render 'shared/footer' %>
     </main>
