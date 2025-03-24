@@ -1,7 +1,7 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -36,10 +36,12 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
 
+  process resize_to_fill: [ 100, 100 ]
+
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w[jpg jpeg gif png]
+    %w[jpg jpeg gif png webp]
   end
 
   # Override the filename of the uploaded files:
@@ -47,4 +49,12 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  # WebP に変換する処理
+  process convert: "webp"
+
+  # WebP の拡張子を強制適用
+  def filename
+    "#{File.basename(super, '.*')}.webp" if original_filename.present?
+  end
 end
