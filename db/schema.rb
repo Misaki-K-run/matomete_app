@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
 
   create_table "ai_generates", force: :cascade do |t|
     t.integer "budget_request", null: false
-    t.integer "people_request", null: false
+    t.string "people_request", null: false
     t.text "allergies"
     t.text "favorite_ingredients"
     t.jsonb "menu_response", default: {}, null: false
@@ -100,7 +100,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
     t.date "ai_usage_date", default: -> { "CURRENT_DATE" }
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "ai_generates", "users"
