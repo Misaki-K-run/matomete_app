@@ -36,6 +36,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
 
+  process convert: :webp
   process resize_to_fill: [ 100, 100 ]
 
   # Add an allowlist of extensions which are allowed to be uploaded.
@@ -50,11 +51,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
-  # WebP に変換する処理
-  process convert: "webp"
 
-  # WebP の拡張子を強制適用
+
+  # WebP 形式に変換した際、ファイル名の拡張子も変更する
   def filename
-    "#{File.basename(super, '.*')}.webp" if original_filename.present?
+    super.chomp(File.extname(super)) + '.webp' if original_filename.present?
   end
 end
