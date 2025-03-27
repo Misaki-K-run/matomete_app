@@ -3,7 +3,10 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).includes(:user, :menu, :shopping_lists).page(params[:page])
+    @posts = @q.result(distinct: true)
+            .includes(:user, :menu, :shopping_lists)
+            .order(created_at: :desc)
+            .page(params[:page])
   end
 
   def mypage
@@ -21,6 +24,7 @@ class PostsController < ApplicationController
     if @post_form.save
       redirect_to posts_path, notice: "投稿できました"
     else
+      Rails.logger.debug @post_form.errors.full_messages
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
@@ -54,6 +58,7 @@ class PostsController < ApplicationController
     if @post_form.update(@post)
       redirect_to posts_path, notice: "投稿を更新できました"
     else
+      Rails.logger.debug @post.errors.full_messages
       flash.now[:alert] = "投稿を更新できませんでした"
       render :edit, status: :unprocessable_entity
     end

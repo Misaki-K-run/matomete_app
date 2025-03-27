@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_27_033627) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "ai_generates", force: :cascade do |t|
@@ -22,35 +23,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
     t.jsonb "menu_response", default: {}, null: false
     t.jsonb "shopping_list_response", default: {}, null: false
     t.integer "sum_response", null: false
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "special_request"
-    t.index ["user_id"], name: "index_ai_generates_on_user_id"
+    t.uuid "user_id"
   end
 
   create_table "bookmarks", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_bookmarks_on_post_id"
-    t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
-    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+    t.uuid "user_id"
+    t.uuid "post_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "ai_generate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["ai_generate_id"], name: "index_favorites_on_ai_generate_id"
-    t.index ["user_id", "ai_generate_id"], name: "index_favorites_on_user_id_and_ai_generate_id", unique: true
-    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "menus", force: :cascade do |t|
-    t.bigint "post_id"
     t.text "monday"
     t.text "tuesday"
     t.text "wednesday"
@@ -60,28 +54,26 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
     t.text "sunday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_menus_on_post_id"
+    t.uuid "post_id"
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "memo"
     t.integer "sum"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.uuid "user_id"
   end
 
   create_table "shopping_lists", force: :cascade do |t|
-    t.bigint "post_id", null: false
     t.string "category"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_shopping_lists_on_post_id"
+    t.uuid "post_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name", default: "", null: false

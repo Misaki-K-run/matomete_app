@@ -55,6 +55,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # WebP 形式に変換した際、ファイル名の拡張子も変更する
   def filename
-    super.chomp(File.extname(super)) + '.webp' if original_filename.present?
+    super.chomp(File.extname(super)) + ".webp" if original_filename.present?
   end
 end
