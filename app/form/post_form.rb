@@ -5,7 +5,7 @@ class PostForm
   # Postの属性
   attribute :memo, :string
   attribute :sum, :integer
-  attribute :user_id, :integer
+  attribute :user_id, :string
 
   # Menuの属性
   attribute :monday, :string

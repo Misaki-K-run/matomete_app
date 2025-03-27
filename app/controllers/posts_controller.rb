@@ -21,6 +21,7 @@ class PostsController < ApplicationController
     if @post_form.save
       redirect_to posts_path, notice: "投稿できました"
     else
+      Rails.logger.debug @post_form.errors.full_messages
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
@@ -54,6 +55,7 @@ class PostsController < ApplicationController
     if @post_form.update(@post)
       redirect_to posts_path, notice: "投稿を更新できました"
     else
+      Rails.logger.debug @post.errors.full_messages
       flash.now[:alert] = "投稿を更新できませんでした"
       render :edit, status: :unprocessable_entity
     end

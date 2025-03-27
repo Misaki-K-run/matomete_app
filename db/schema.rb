@@ -10,43 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_27_011225) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "ai_generates", force: :cascade do |t|
     t.integer "budget_request", null: false
-    t.string "people_request", null: false
+    t.integer "people_request", null: false
     t.text "allergies"
     t.text "favorite_ingredients"
     t.jsonb "menu_response", default: {}, null: false
     t.jsonb "shopping_list_response", default: {}, null: false
     t.integer "sum_response", null: false
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "special_request"
-    t.index ["user_id"], name: "index_ai_generates_on_user_id"
+    t.uuid "user_id"
   end
 
   create_table "bookmarks", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
-    t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
-    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "ai_generate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["ai_generate_id"], name: "index_favorites_on_ai_generate_id"
-    t.index ["user_id", "ai_generate_id"], name: "index_favorites_on_user_id_and_ai_generate_id", unique: true
-    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -66,10 +62,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
   create_table "posts", force: :cascade do |t|
     t.text "memo"
     t.integer "sum"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.uuid "user_id"
   end
 
   create_table "shopping_lists", force: :cascade do |t|
@@ -81,7 +76,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
     t.index ["post_id"], name: "index_shopping_lists_on_post_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name", default: "", null: false
@@ -100,6 +95,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_17_025928) do
     t.date "ai_usage_date", default: -> { "CURRENT_DATE" }
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "ai_generates", "users"
