@@ -5,6 +5,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     ports:
