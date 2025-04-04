@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   validates :memo, length: { maximum: 1000 }
-  validates :sum, length: { maximum: 100000 }
+  validates :sum, numericality: { only_integer: true, less_than_or_equal_to: 100000 }
 
   # 関連付け
   belongs_to :user
