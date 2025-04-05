@@ -81,7 +81,7 @@ jobs:
         run: bundle exec rspec
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:password@postgres:5432/myapp_test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
         #env:
           #RAILS_ENV: test
           #DATABASE_URL: postgres://postgres:postgres@localhost:5432
