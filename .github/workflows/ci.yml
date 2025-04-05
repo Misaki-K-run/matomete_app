@@ -39,13 +39,16 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      OPENAI_ACCESS_TOKEN: ${{ secrets.OPENAI_ACCESS_TOKEN }}
 
     services:
       postgres:
         image: postgres
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: myapp_test
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -69,7 +72,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      #- name: Run tests
+      - name: Set up the database
+        run: |
+          bin/rails db:create RAILS_ENV=test
+          bin/rails db:schema:load RAILS_ENV=test
+
+      - name: Run Rspec tests
+        run: bundle exec rspec
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
         #env:
           #RAILS_ENV: test
           #DATABASE_URL: postgres://postgres:postgres@localhost:5432
