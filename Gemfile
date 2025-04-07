@@ -90,4 +90,5 @@ group :test do
   gem "faker"
   gem "simplecov", require: false
   gem "shoulda-matchers", "~> 5.0"
+    gem "webmock"
 end
