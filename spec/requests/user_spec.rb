@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-
   it "allows a user to sign up" do
     post user_registration_path, params: { user: { email: 'test@example.com', password: 'password', password_confirmation: 'password', name: 'Test User' } }
     expect(response).to redirect_to(posts_path)

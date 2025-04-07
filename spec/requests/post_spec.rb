@@ -63,7 +63,7 @@ RSpec.describe 'Posts', type: :request do
           sum: 6000,
           monday: 'カレー',
           tuesday: 'うどん',
-          shopping_list_items: [{ name: '玉ねぎ', category: 'vegetable' }]
+          shopping_list_items: [ { name: '玉ねぎ', category: 'vegetable' } ]
         }
       }
 
