@@ -33,8 +33,16 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+      - selenium-hub
+
+  selenium-hub:
+    image: selenium/standalone-chrome:latest
+    platform: linux/amd64
+    ports:
+      - "4444:4444"
+    restart: always
+
 volumes:
   bundle_data:
   postgresql_data:
