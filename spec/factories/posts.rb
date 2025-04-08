@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
     memo { Faker::String.random(length: 20) }
-    sum { Faker::Number.binary(digits: 5) }
+    sum { Faker::Number.number(digits: 5) }
     association :user
 
     trait :with_menu do
