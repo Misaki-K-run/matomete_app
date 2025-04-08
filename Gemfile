@@ -89,6 +89,6 @@ group :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "simplecov", require: false
-  gem "shoulda-matchers", "~> 5.0"
+  gem "shoulda-matchers", "~> 6.4"
   gem "webmock"
 end
