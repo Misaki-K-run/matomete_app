@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :post do
-    memo { Faker::String.random(length: 20) }
+    memo { Faker::Lorem.sentence(word_count: 4) }
     sum { Faker::Number.number(digits: 5) }
     association :user
 
