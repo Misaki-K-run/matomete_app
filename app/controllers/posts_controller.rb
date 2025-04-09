@@ -101,7 +101,6 @@ class PostsController < ApplicationController
                     },
                   twitter: {
                       card: "summary_large_image",
-                      site: "@https://x.com/yukimura877",
                       image: image_url
                     }
   end
