@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get "images/ogp"
   # トップページ
   root "static_pages#top"
 
@@ -37,6 +38,9 @@ Rails.application.routes.draw do
   # 利用規約・プライバシーポリシー
   get "privacy_policy" => "static_pages#privacy_policy", as: :privacy_policy
   get "terms_of_service" => "static_pages#terms_of_service", as: :terms_of_service
+
+  # 動的OGP
+  get "images/ogp.png", to: "images#ogp", as: "images_ogp"
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

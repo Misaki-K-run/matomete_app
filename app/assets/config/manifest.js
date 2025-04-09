@@ -5,3 +5,4 @@
 //= link favorite.mp4
 //= link search.mp4
 //= link post.mp4
+//= link apple-touch-icon.png

@@ -7,6 +7,9 @@ class PostsController < ApplicationController
             .includes(:user, :menu, :shopping_lists)
             .order(created_at: :desc)
             .page(params[:page])
+
+    # メタタグを設定する。
+    prepare_meta_tags(@post)
   end
 
   def mypage
@@ -82,5 +85,24 @@ class PostsController < ApplicationController
       :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
       shopping_list_items: [ :name, :category ]
     )
+  end
+
+  def prepare_meta_tags(post)
+    image_url = "#{request.base_url}/images/ogp.png?text=投稿一覧"
+
+    set_meta_tags og: {
+                      site_name: "matomete",
+                      title: "投稿一覧 - matomete",
+                      description: "一週間分の献立表と買い物リストをまとめて作成した投稿一覧ページ",
+                      type: "website",
+                      url: request.original_url,
+                      image: image_url,
+                      locale: "ja-JP"
+                    },
+                  twitter: {
+                      card: "summary_large_image",
+                      site: "@https://x.com/yukimura877",
+                      image: image_url
+                    }
   end
 end
