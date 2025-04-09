@@ -1,7 +1,7 @@
 <a href="<%= post_path(post) %>" class="block w-full">
   <div class="card bg-base-100 h-128 shadow-xl hover:shadow-2xl transition max-w-xs mx-auto">
     <div class="card-body">
-      <!-- テーブル -->
+  <!-- テーブル -->
     <div class="overflow-x-auto">
   <table class="table">
     <thead>
@@ -71,14 +71,11 @@
   </table>
   </div>
 
-
-
-
       <!-- ユーザー情報 -->
       <div class="flex items-center space-x-4 mt-4  justify-between">
         <div class="avatar">
           <div class="w-20 h-20 rounded-full overflow-hidden">
-            <%= image_tag post.user&.avatar.present? ? post.user.avatar.url : 'user-icon.png', class: "w-full h-full object-cover" %>
+            <%= image_tag post.user&.avatar.present? ? post.user.avatar.url : 'user-icon.webp', class: "w-full h-full object-cover" %>
           </div>
         </div>
 
@@ -102,6 +99,6 @@
         </div>
       </div>
 
-    </div> <!-- card-body -->
-  </div> <!-- card -->
+    </div>
+  </div>
 </a>
