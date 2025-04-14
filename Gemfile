@@ -12,7 +12,7 @@ gem "devise-i18n-views"
 gem "rails-i18n"
 
 # 画像アップロード
-gem "carrierwave", "2.2.2"
+gem "carrierwave", "3.1.2"
 gem "mini_magick"
 
 # 検索機能
