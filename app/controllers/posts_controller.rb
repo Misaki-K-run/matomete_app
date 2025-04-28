@@ -8,7 +8,6 @@ class PostsController < ApplicationController
             .order(created_at: :desc)
             .page(params[:page])
 
-    # メタタグを設定する。
     prepare_meta_tags(@post)
   end
 

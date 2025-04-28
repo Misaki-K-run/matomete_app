@@ -3,6 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   config.hosts << "matomete.jp"      # 独自ドメイン
   config.hosts << "www.matomete.jp"  # サブドメイン
+  config.hosts << "matomete-app.onrender.com"
 
   # Settings specified here will take precedence over those in config/application.rb.
 
