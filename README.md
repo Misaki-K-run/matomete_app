@@ -86,7 +86,8 @@
 | Web API | OpenAI API|
 | 認証 | Devise・Google OAuth |
 | データベースサーバー | PostgreSQL |
-| アプリケーションサーバー | Render |
+| アプリケーションサーバー | Render|
+| ストレージ | AWS S3 |
 | 環境構築 | Docker |
 | CI/CD | Github Actions |
 | バージョン管理ツール | GitHub・Git Flow |
