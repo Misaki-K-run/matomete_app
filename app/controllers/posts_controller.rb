@@ -26,7 +26,6 @@ class PostsController < ApplicationController
     if @post_form.save
       redirect_to posts_path, notice: "投稿できました"
     else
-      Rails.logger.debug @post_form.errors.full_messages
       flash.now[:alert] = "投稿できませんでした"
       render :new, status: :unprocessable_entity
     end
