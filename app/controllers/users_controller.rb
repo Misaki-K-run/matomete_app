@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    Rails.logger.debug "Current user ID: #{current_user.id}"
     @user = User.find(current_user.id)
   end
 
