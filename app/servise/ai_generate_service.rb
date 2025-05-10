@@ -14,7 +14,7 @@ class AiGenerateService
           model: "gpt-3.5-turbo",
           temperature: 0.7,
           messages: [
-            { role: "system", content: "あなたは栄養バランスの良い献立を提案する専門家です。" },
+            { role: "system", content: "あなたは日本語で献立を提案する栄養士です。栄養バランスを考慮した一週間分の献立を作成してください。" },
             { role: "user", content: user_prompt }
           ]
         }
@@ -43,7 +43,7 @@ class AiGenerateService
       もし、#{@special_request}というリクエストがあれば、それも考慮して献立を作成してください。
       食材の価格は一般的なスーパーマーケットの平均的な価格を想定してください。
 
-      以下は返答のフォーマット例です。結果は以下のJSONフォーマットで返してください:
+      以下は返答のフォーマット例です。結果は必ず日本語で、以下のJSONフォーマットで返してください:
       {
       "menu": {
         "day 1": ["主菜", "副菜", "汁物"],
