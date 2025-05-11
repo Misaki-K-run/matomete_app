@@ -4,7 +4,7 @@
   <div class="grid md:grid-cols-2 gap-4 mb-6">
     <% @ai_generate.menu_response.each do |day, meals| %>
       <div class="bg-white border border-gray-300 rounded-xl p-4 shadow-sm hover:shadow-md transition">
-        <h3 class="text-lg font-semibold text-green-600 mb-3"><%= Day %></h3>
+        <h3 class="text-lg font-semibold text-green-600 mb-3"><%= day %></h3>
         <ul class="space-y-2 text-gray-800 text-sm">
           <% ["主菜", "副菜", "汁物"].each_with_index do |label, i| %>
             <% if meals[i].present? %>
